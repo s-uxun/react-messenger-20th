@@ -1,1 +1,1 @@
-export { ReactComponent as Profile } from "./Profile.svg";
+export { default as Profile } from "./Profile";

@@ -1,5 +1,4 @@
 import { Profile } from "./assets/icons";
-
 function App() {
   return (
     <div>

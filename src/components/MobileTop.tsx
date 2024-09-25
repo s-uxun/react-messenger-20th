@@ -12,8 +12,10 @@ export function MobileTop() {
   const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
-    const viewportWidth = window.innerWidth * window.devicePixelRatio;
-    setIsMobile(viewportWidth <= 1024);
+    const userAgent = navigator.userAgent;
+    const isMobileDevice = /android|iphone|ipad|windows phone/i.test(userAgent);
+
+    setIsMobile(isMobileDevice);
   }, []);
 
   if (isMobile) {

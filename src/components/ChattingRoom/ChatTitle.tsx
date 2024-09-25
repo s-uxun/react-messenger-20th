@@ -15,11 +15,21 @@ export function ChatTitle() {
   //임의로 id가 1인 채팅방 불러오기 (추후 목록에서 채팅방 클릭하면 해당 id의 채팅방이 불러와지도록 수정할 예정)
   const chatroom = chatrooms.find((room) => room.id === 1);
 
-  //채팅방 title이 없을 경우엔 user의 name 배열 할당
-  const getUserNames = (userIds: number[]) => {
-    return userIds
-      .map((userId) => users.find((user) => user.id === userId)?.name)
-      .join(", ");
+  //채팅방 title이 없을 경우엔 그룹채팅(3명 이상), 혹은 상대방 이름 할당. 만약 없을 경우엔 '알 수 없음' 할당.
+  const getTitle = (
+    title: string,
+    userIds: number[],
+    currentUserId: number
+  ) => {
+    if (title) return title;
+
+    if (userIds.length === 2) {
+      const counterpart = users.find(
+        (user) => userIds.includes(user.id) && user.id !== currentUserId
+      );
+      return counterpart?.name || "(알 수 없음)";
+    }
+    return "그룹채팅";
   };
 
   return (
@@ -30,9 +40,15 @@ export function ChatTitle() {
       </Left>
       <Center>
         <Title>
-          {chatroom?.title || getUserNames(chatroom?.userIds || [])}
+          {getTitle(
+            chatroom?.title || "",
+            chatroom?.userIds || [],
+            chatroom?.currentUserId || 1
+          )}
         </Title>
-        <Num>{chatroom?.userIds.length}</Num>
+        {chatroom?.userIds && chatroom.userIds.length > 2 && (
+          <Num>{chatroom?.userIds.length}</Num>
+        )}
       </Center>
       <Right>
         <Search style={{ width: "1.5rem", cursor: "pointer" }} />

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type User = {
+type user = {
   id: number;
   name: string;
   img: string;
@@ -10,10 +10,10 @@ type User = {
 };
 
 type userStore = {
-  users: User[];
+  users: user[];
 };
 
-const mockUsers: User[] = [
+const mockUsers: user[] = [
   {
     id: 1,
     name: "유선",
@@ -48,4 +48,6 @@ const mockUsers: User[] = [
   },
 ];
 
-export const useUserStore = create<userStore>((set) => ({ users: mockUsers }));
+const useUserStore = create<userStore>((set) => ({ users: mockUsers }));
+
+export default useUserStore;

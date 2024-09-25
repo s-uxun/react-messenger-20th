@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
   :root{
     --vh: 100%;
     margin: 0 auto;
-    max-width: 375px;
+    max-width: 430px;
     box-sizing: border-box;
     font-family: 'Pretendard';
   }

@@ -12,7 +12,7 @@ export function MobileTop() {
   const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
-    const deviceWidth = window.screen.width;
+    const deviceWidth = window.innerWidth;
     setIsMobile(deviceWidth <= 1024); //태블릿까지 고려해서 1024px로 설정
   }, []);
 

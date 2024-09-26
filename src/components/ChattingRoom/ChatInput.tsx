@@ -60,7 +60,7 @@ const InputBox = styled.div`
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};
-  max-width: calc(100% - 1.5rem);
+  max-width: calc(100% - 2rem);
   box-sizing: border-box;
 `;
 

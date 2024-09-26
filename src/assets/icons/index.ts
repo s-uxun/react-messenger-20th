@@ -6,3 +6,4 @@ export { default as MobileBar } from "./MobileBar";
 export { default as Plus } from "./Plus";
 export { default as Profile } from "./Profile";
 export { default as Search } from "./Search";
+export { default as Send } from "./Send";

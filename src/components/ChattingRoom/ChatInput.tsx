@@ -47,6 +47,7 @@ const Container = styled.div`
   column-gap: 0.75rem;
   justify-content: space-between;
   background-color: white;
+  max-width: 100vw;
 `;
 
 const InputBox = styled.div`

@@ -15,15 +15,37 @@ type chatByDate = {
 
 type chatByRoom = {
   roomId: number;
-  chatByDate: chatByDate[];
+  allChats: chatByDate[];
 };
 
 type chatStore = {
   chatByRooms: chatByRoom[];
+  addChat: (roomId: number, newChat: chat, newChatDate: string) => void;
 };
 
 const useChatStore = create<chatStore>((set) => ({
   chatByRooms: Chat,
+
+  // 오늘 날짜(newChatDate)에 해당하는 기존 데이터가 있으면 거기에 추가하고, 없으면 새 배열로 감싸서 추가하기
+  addChat: (roomId: number, newChat: chat, newChatDate: string) =>
+    set((state) => ({
+      chatByRooms: state.chatByRooms.map((room) => {
+        if (room.roomId !== roomId) return room;
+
+        const existingDate = room.allChats.find(
+          (chatDate) => chatDate.date === newChatDate
+        );
+
+        if (existingDate) {
+          existingDate.chats.push(newChat);
+          return room;
+        }
+        return {
+          ...room,
+          allChats: [...room.allChats, { date: newChatDate, chats: [newChat] }],
+        };
+      }),
+    })),
 }));
 
 export default useChatStore;

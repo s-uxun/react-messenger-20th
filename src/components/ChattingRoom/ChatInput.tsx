@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, ChangeEvent } from "react";
-
 import useChatStore from "../../stores/ChatStore";
-
 import styled from "styled-components";
-
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
 export function ChatInput() {

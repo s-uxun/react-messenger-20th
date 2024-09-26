@@ -29,4 +29,5 @@ const Wrapper = styled.div`
 
 const ChatContentStyle = styled.div`
   flex-grow: 1;
+  overflow: scroll;
 `;

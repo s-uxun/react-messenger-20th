@@ -26,7 +26,7 @@ function App() {
         {/*비록 이번 주 과제는 채팅 페이지 하나지만 다음을 위해 router로 구현했습니다. */}
         <Router>
           <Routes>
-            <Route path="/" element={<ChattingPage />} />
+            <Route path="/chatroom/:roomId" element={<ChattingPage />} />
           </Routes>
         </Router>
       </ThemeProvider>

@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, ChangeEvent } from "react";
-import { useMobile } from "../hooks/useMobile";
 
 import useChatStore from "../../stores/ChatStore";
 
@@ -24,15 +23,14 @@ export function ChatInput() {
     setValue(e.target.value);
   };
 
-  // 조건부 렌더링으로 아이콘 지정
+  // 조건부 렌더링으로 스타일 지정
   const LastIcon = value.trim() ? Send : HashTag;
-
-  const isMobile = useMobile();
+  const alignItems = value.trim() ? "end" : "center";
 
   return (
-    <Container isMobile={isMobile}>
+    <Container>
       <StyledIcon as={Plus} />
-      <InputBox>
+      <InputBox alignItems={alignItems}>
         <Textarea ref={textareaRef} value={value} onChange={handleChange} />
         <Icons>
           <StyledIcon as={Emoji} style={{ marginRight: "0.5rem" }} />
@@ -43,9 +41,8 @@ export function ChatInput() {
   );
 }
 
-const Container = styled.div<{ isMobile: boolean }>`
+const Container = styled.div`
   display: flex;
-  width: ${({ isMobile }) => (isMobile ? "100vw" : "100%")};
   padding: 0.375rem 0.75rem;
   align-items: center;
   column-gap: 0.75rem;
@@ -53,13 +50,13 @@ const Container = styled.div<{ isMobile: boolean }>`
   background-color: white;
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.div<{ alignItems: string }>`
   display: flex;
   align-items: end;
   justify-content: space-between;
-  flex-grow: 1;
   padding: 0.375rem 0.75rem;
   column-gap: 0.5rem;
+  width: 100%;
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};

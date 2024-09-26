@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { MobileTop } from "../components/MobileTop";
 import { ChatTitle } from "../components/ChattingRoom/ChatTitle";
+import { ChatInput } from "../components/ChattingRoom/ChatInput";
 
 const ChattingPage = () => {
   return (
@@ -8,6 +9,7 @@ const ChattingPage = () => {
       <MobileTop />
       <ChatTitle />
       <p>채팅방</p>
+      <ChatInput />
     </Wrapper>
   );
 };

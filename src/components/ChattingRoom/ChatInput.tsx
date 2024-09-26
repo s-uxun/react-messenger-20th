@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, ChangeEvent } from "react";
+import { useMobile } from "../hooks/useMobile";
 
 import useChatStore from "../../stores/ChatStore";
 
@@ -26,8 +27,10 @@ export function ChatInput() {
   // 조건부 렌더링으로 아이콘 지정
   const LastIcon = value.trim() ? Send : HashTag;
 
+  const isMobile = useMobile();
+
   return (
-    <Container>
+    <Container isMobile={isMobile}>
       <StyledIcon as={Plus} />
       <InputBox>
         <Textarea ref={textareaRef} value={value} onChange={handleChange} />
@@ -40,9 +43,9 @@ export function ChatInput() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ isMobile: boolean }>`
   display: flex;
-  width: 100%;
+  width: ${({ isMobile }) => (isMobile ? "100vw" : "100%")};
   padding: 0.375rem 0.75rem;
   align-items: center;
   column-gap: 0.75rem;

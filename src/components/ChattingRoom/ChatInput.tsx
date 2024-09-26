@@ -52,7 +52,6 @@ const Container = styled.div`
 const InputBox = styled.div`
   display: flex;
   flex-grow: 1;
-  flex-shrink: 1;
   align-items: end;
   justify-content: space-between;
   padding: 0.375rem 0.75rem;
@@ -60,14 +59,14 @@ const InputBox = styled.div`
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};
+  max-width: 100%;
+  box-sizing: border-box;
 `;
 
 const Textarea = styled.textarea`
   ${({ theme }) => theme.font.Body_1_med};
   flex-grow: 1;
-  flex-shrink: 1;
   max-height: 4.5rem;
-  flex-shrink: 0;
   resize: none;
   outline: none;
   border: none;

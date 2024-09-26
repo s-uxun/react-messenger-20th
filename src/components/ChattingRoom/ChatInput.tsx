@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef, ChangeEvent } from "react";
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 import useChatStore from "../../stores/ChatStore";
+import { newDate, getCurrentTime } from "../hooks/useTime";
+import { getCurrentUserId } from "../hooks/useUser";
 import styled from "styled-components";
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
@@ -18,6 +20,21 @@ export function ChatInput() {
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
+  };
+
+  const addChat = useChatStore((state) => state.addChat);
+  const currentUserId = getCurrentUserId();
+
+  const handleSend = () => {
+    if (!value.trim()) return; // 입력값 없으면 전송 X
+
+    const newChatDate = newDate;
+    const newChat = {
+      id: Date.now(),
+      senderId: currentUserId,
+      text: value,
+      time: getCurrentTime(),
+    };
   };
 
   // 조건부 렌더링으로 아이콘 지정

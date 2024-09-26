@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 
-const getCurrentTime = (): string => {
+export const newDate = new Date().toLocaleDateString("ko-KR", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  weekday: "long",
+});
+
+export const getCurrentTime = (): string => {
   return new Date().toLocaleTimeString([], {
     hour: "numeric", //1자리 or 2자리
     hour12: true,

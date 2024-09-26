@@ -23,19 +23,18 @@ export function ChatInput() {
     setValue(e.target.value);
   };
 
-  // 조건부 렌더링으로 스타일 지정
+  // 조건부 렌더링으로 아이콘 지정
   const LastIcon = value.trim() ? Send : HashTag;
-  const alignItems = value.trim() ? "end" : "center";
 
   return (
     <Container>
       <StyledIcon as={Plus} />
-      <InputBox alignItems={alignItems}>
+      <InputBox>
         <Textarea ref={textareaRef} value={value} onChange={handleChange} />
-        <div>
+        <Icons>
           <StyledIcon as={Emoji} style={{ marginRight: "0.5rem" }} />
           <StyledIcon as={LastIcon} />
-        </div>
+        </Icons>
       </InputBox>
     </Container>
   );
@@ -50,7 +49,7 @@ const Container = styled.div`
   background-color: white;
 `;
 
-const InputBox = styled.div<{ alignItems: string }>`
+const InputBox = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -78,4 +77,10 @@ const StyledIcon = styled.svg`
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
+`;
+
+const Icons = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.1rem;
 `;

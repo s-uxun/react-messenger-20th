@@ -28,7 +28,7 @@ export function ChatInput() {
 
   return (
     <Container>
-      <StyledIcon as={Plus} style={{ flexShrink: 0 }} />
+      <StyledIcon as={Plus} />
       <InputBox>
         <Textarea ref={textareaRef} value={value} onChange={handleChange} />
         <Icons>
@@ -60,7 +60,7 @@ const InputBox = styled.div`
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};
-  max-width: 100%;
+  max-width: calc(100% - 1.5rem);
   box-sizing: border-box;
 `;
 
@@ -73,12 +73,14 @@ const Textarea = styled.textarea`
   border: none;
   background-color: ${({ theme }) => theme.color.gray5};
   ${({ theme }) => theme.scroll.none};
+  min-width: 0;
 `;
 
 const StyledIcon = styled.svg`
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
+  flex-shrink: 0;
 `;
 
 const Icons = styled.div`

@@ -60,8 +60,7 @@ const InputBox = styled.div`
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};
-  max-width: calc(100% - 2rem);
-  box-sizing: border-box;
+  max-width: calc(100% - 2.5rem);
 `;
 
 const Textarea = styled.textarea`
@@ -73,7 +72,6 @@ const Textarea = styled.textarea`
   border: none;
   background-color: ${({ theme }) => theme.color.gray5};
   ${({ theme }) => theme.scroll.none};
-  min-width: 0;
 `;
 
 const StyledIcon = styled.svg`

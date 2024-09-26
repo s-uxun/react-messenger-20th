@@ -53,9 +53,9 @@ const InputBox = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
+  flex-grow: 1;
   padding: 0.375rem 0.75rem;
   column-gap: 0.5rem;
-  width: 100%;
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};

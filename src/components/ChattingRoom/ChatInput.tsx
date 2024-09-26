@@ -64,7 +64,7 @@ const InputBox = styled.div<{ alignItems: string }>`
 
 const Textarea = styled.textarea`
   ${({ theme }) => theme.font.Body_1_med};
-  width: 70%;
+  flex-grow: 1;
   max-height: 4.5rem;
   flex-shrink: 0;
   resize: none;

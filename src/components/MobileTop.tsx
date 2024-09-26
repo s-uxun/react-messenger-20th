@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTime } from "./hooks/useTime";
+import { useMobile } from "./hooks/useMobile";
 import { MobileBar } from "../assets/icons";
 import styled from "styled-components";
 
@@ -9,15 +10,7 @@ export function MobileTop() {
     .trim(); //여기선 오전, 오후 제외
 
   // 모바일, 태블릿에서는 안 보이게 하기
-  const [isMobile, setIsMobile] = useState(true);
-
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
-    const isMobileDevice = /android|iphone|ipad|windows phone/i.test(userAgent);
-
-    setIsMobile(isMobileDevice);
-  }, []);
-
+  const isMobile = useMobile();
   if (isMobile) {
     return null;
   }

@@ -23,14 +23,13 @@ export function ChatInput() {
     setValue(e.target.value);
   };
 
-  // 조건부 렌더링으로 스타일 지정
+  // 조건부 렌더링으로 아이콘 지정
   const LastIcon = value.trim() ? Send : HashTag;
-  const alignItems = value.trim() ? "end" : "center";
 
   return (
     <Container>
-      <StyledIcon as={Plus} />
-      <InputBox alignItems={alignItems}>
+      <StyledIcon as={Plus} style={{ flexShrink: 0 }} />
+      <InputBox>
         <Textarea ref={textareaRef} value={value} onChange={handleChange} />
         <Icons>
           <StyledIcon as={Emoji} style={{ marginRight: "0.5rem" }} />
@@ -50,7 +49,7 @@ const Container = styled.div`
   background-color: white;
 `;
 
-const InputBox = styled.div<{ alignItems: string }>`
+const InputBox = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;

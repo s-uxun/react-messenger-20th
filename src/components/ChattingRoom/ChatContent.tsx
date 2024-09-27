@@ -4,6 +4,7 @@ import useChatStore from "../../stores/ChatStore";
 import useUserStore from "../../stores/UserStore";
 import { Profile } from "../../assets/icons";
 import { useCurrentUserId } from "../hooks/useUser";
+import { jelloHorizontal } from "../../styles/Keyframe";
 import { styled, useTheme } from "styled-components";
 
 export function ChatContent() {
@@ -150,7 +151,9 @@ const UserName = styled.div`
   color: ${({ theme }) => theme.color.gray70};
   margin-bottom: 0.25rem;
   cursor: url(https://s-uxun.github.io/CDN/Rainbow.cur), pointer;
+  width: fit-content;
 `;
+
 const ChatTime = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray50};

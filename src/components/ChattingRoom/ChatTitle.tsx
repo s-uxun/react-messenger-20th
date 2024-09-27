@@ -63,6 +63,7 @@ const Contianer = styled.div`
   justify-content: space-between;
   height: 3rem;
   background-color: white;
+  flex-shrink: 0;
 `;
 
 const Left = styled.div`

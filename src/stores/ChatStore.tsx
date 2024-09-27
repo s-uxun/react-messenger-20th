@@ -4,7 +4,7 @@ import Chat from "./MockData/Chat.json";
 type chat = {
   id: number;
   senderId: number;
-  text: string[];
+  text: string;
   time: string;
 };
 

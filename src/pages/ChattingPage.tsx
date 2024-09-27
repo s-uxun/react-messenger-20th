@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MobileTop } from "../components/MobileTop";
 import { ChatTitle } from "../components/ChattingRoom/ChatTitle";
 import { ChatInput } from "../components/ChattingRoom/ChatInput";
 import { ChatContent } from "../components/ChattingRoom/ChatContent";
 import { ChatBottom } from "../components/ChattingRoom/ChatBottom";
+import { useCurrentUserId } from "../components/hooks/useUser";
 
 const ChattingPage = () => {
   const [newChatIds, setNewChatIds] = useState<number[]>([]);
   const handleNewChat = (id: number) => {
     setNewChatIds((prevIds) => [...prevIds, id]);
   };
+
+  const { currentUserId } = useCurrentUserId();
+  useEffect(() => {
+    setNewChatIds([]);
+  }, [currentUserId]);
 
   return (
     <Wrapper>

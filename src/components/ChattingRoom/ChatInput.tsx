@@ -33,7 +33,7 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
     const newChat = {
       id: Date.now(),
       senderId: currentUserId,
-      text: [value],
+      text: value,
       time: getCurrentTime(),
     };
 
@@ -86,7 +86,7 @@ const Container = styled.div`
 const InputBox = styled.div`
   display: flex;
   flex-grow: 1;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   padding: 0.375rem 0.75rem;
   column-gap: 0.5rem;

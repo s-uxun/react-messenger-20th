@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import useUserStore from "../../stores/UserStore";
@@ -7,15 +7,39 @@ import { useCurrentUserId } from "../hooks/useUser";
 import { jelloHorizontal } from "../../styles/Keyframe";
 import { styled, useTheme, css } from "styled-components";
 
+interface Chat {
+  id: number;
+  senderId: number;
+  text: string;
+  time: string;
+}
+
+interface GroupedChat {
+  senderId: number;
+  time: string;
+  messages: Chat[];
+}
+
+interface ChatDate {
+  date: string;
+  chats: Chat[];
+}
+
+interface User {
+  id: number;
+  img?: string;
+  name: string;
+}
+
 export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
   const { roomId } = useParams<{ roomId: string }>();
   const { currentUserId, setCurrentUserId } = useCurrentUserId();
-  const users = useUserStore((state) => state.users);
+  const users: User[] = useUserStore((state) => state.users);
   const allChats = useChatStore((state) =>
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
   )?.allChats;
 
-  // 랜덤으로 프로필 svg 색상 지정
+  // 랜덤으로 프로필 SVG 색상 지정
   const theme = useTheme();
   const profileColors = [
     theme.color.pink,
@@ -36,34 +60,60 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
     autoScroll();
   }, [allChats]);
 
+  // 같은 time(~시 ~분)동안 보낸 메시지들 그룹화하기
+  const groupMessages = (chats: Chat[]): GroupedChat[] =>
+    chats.reduce((groups, chat) => {
+      const lastGroup = groups[groups.length - 1];
+      if (
+        lastGroup &&
+        lastGroup.senderId === chat.senderId &&
+        lastGroup.time === chat.time
+      ) {
+        lastGroup.messages.push(chat);
+      } else {
+        groups.push({
+          senderId: chat.senderId,
+          time: chat.time,
+          messages: [chat],
+        });
+      }
+      return groups;
+    }, [] as GroupedChat[]);
+
   return (
     <Wrapper>
-      {allChats?.map((chatDate) => (
+      {allChats?.map((chatDate: ChatDate) => (
         <div key={chatDate.date}>
           <FlexCenter>
             <ChatDate>{chatDate.date}</ChatDate>
           </FlexCenter>
-          {chatDate.chats.map((chat) => {
-            const sender = users.find((user) => user.id === chat.senderId);
-            const isCurrentUser = sender?.id === currentUserId;
-            const isNewLine = newChatIds.includes(chat.id);
+          {groupMessages(chatDate.chats).map((group, groupIndex) => {
+            const sender = users.find((user) => user.id === group.senderId);
+            const isCurrentUser = group.senderId === currentUserId;
+            const lastMessage = group.messages[group.messages.length - 1];
+            const isNewLine = newChatIds.includes(lastMessage.id);
 
             return (
-              <Container key={chat.id}>
+              <Container key={`${group.senderId}-${group.time}-${groupIndex}`}>
                 {isCurrentUser ? (
                   <MyChat>
-                    <MyLastChat>
-                      <ChatTime>{chat.time}</ChatTime>
-                      <MyChatText isNewLine={isNewLine}>
-                        {chat.text[0]}
+                    {group.messages.slice(0, -1).map((chat) => (
+                      <MyChatText key={chat.id} isNewLine={false}>
+                        {chat.text}
                       </MyChatText>
+                    ))}
+                    <MyLastChat>
+                      <MyChatText key={lastMessage.id} isNewLine={isNewLine}>
+                        {lastMessage.text}
+                      </MyChatText>
+                      <ChatTime>{group.time}</ChatTime>
                     </MyLastChat>
                   </MyChat>
                 ) : (
                   <OtherChat>
                     {sender?.img ? (
                       <UserImg
-                        src={require(`../../assets/images/${sender?.img}`)}
+                        src={require(`../../assets/images/${sender.img}`)}
                         alt={sender.name}
                       />
                     ) : (
@@ -79,11 +129,14 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
                       >
                         {sender?.name}
                       </UserName>
+                      {group.messages.slice(0, -1).map((chat) => (
+                        <OtherChatText key={chat.id}>{chat.text}</OtherChatText>
+                      ))}
                       <OtherLastChat>
-                        <OtherChatText isNewLine={isNewLine}>
-                          {chat.text[0]}
+                        <OtherChatText key={lastMessage.id}>
+                          {lastMessage.text}
                         </OtherChatText>
-                        <ChatTime>{chat.time}</ChatTime>
+                        <ChatTime>{group.time}</ChatTime>
                       </OtherLastChat>
                     </FlexColumn>
                   </OtherChat>
@@ -97,8 +150,6 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
     </Wrapper>
   );
 }
-
-// 스타일링 코드
 
 const Wrapper = styled.div`
   ${({ theme }) => theme.scroll.none};
@@ -127,7 +178,6 @@ const ChatDate = styled.div`
 const MyChat = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: 0.25rem;
 `;
 
@@ -139,7 +189,6 @@ const MyChatText = styled.div<{ isNewLine: boolean }>`
   padding: 0.375rem 0.75rem;
   border-radius: 0.75rem;
   word-wrap: break-word;
-  flex-grow: 0;
   align-self: flex-end;
   ${({ isNewLine }) =>
     isNewLine &&
@@ -150,16 +199,18 @@ const MyChatText = styled.div<{ isNewLine: boolean }>`
 
 const MyLastChat = styled.div`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+  align-items: center;
   gap: 0.25rem;
 `;
 
 const OtherChat = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 0.5rem;
 `;
 
-const OtherChatText = styled.div<{ isNewLine: boolean }>`
+const OtherChatText = styled.div`
   ${({ theme }) => theme.font.Body_1_med};
   color: ${({ theme }) => theme.color.gray100};
   background-color: white;
@@ -167,18 +218,12 @@ const OtherChatText = styled.div<{ isNewLine: boolean }>`
   padding: 0.375rem 0.75rem;
   border-radius: 0.75rem;
   word-wrap: break-word;
-  flex-grow: 0;
   align-self: flex-start;
-  ${({ isNewLine }) =>
-    isNewLine &&
-    css`
-      animation: ${jelloHorizontal} 0.9s both;
-    `}
 `;
 
 const OtherLastChat = styled.div`
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
   gap: 0.25rem;
 `;
 
@@ -186,27 +231,25 @@ const UserName = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray70};
   margin-bottom: 0.25rem;
-  cursor: url(https://s-uxun.github.io/CDN/Rainbow.cur), pointer;
+  cursor: pointer;
   width: fit-content;
 `;
 
 const ChatTime = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray50};
-  align-content: flex-end;
+  align-self: flex-end;
 `;
 
 const UserImg = styled.img`
   border-radius: 50%;
   width: 2.25rem;
   height: 2.25rem;
-  margin-right: 0.5rem;
 `;
 
 const StyledProfile = styled(Profile)`
   width: 2.25rem;
   height: 2.25rem;
-  margin-right: 0.5rem;
 `;
 
 const FlexCenter = styled.div`

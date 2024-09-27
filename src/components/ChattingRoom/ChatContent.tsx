@@ -1,13 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import useUserStore from "../../stores/UserStore";
 import { Profile } from "../../assets/icons";
 import { useCurrentUserId } from "../hooks/useUser";
 import { jelloHorizontal } from "../../styles/Keyframe";
-import { styled, useTheme } from "styled-components";
+import { styled, useTheme, css } from "styled-components";
 
-export function ChatContent() {
+export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
   const { roomId } = useParams<{ roomId: string }>();
   const { currentUserId, setCurrentUserId } = useCurrentUserId();
   const users = useUserStore((state) => state.users);
@@ -46,16 +46,17 @@ export function ChatContent() {
           {chatDate.chats.map((chat) => {
             const sender = users.find((user) => user.id === chat.senderId);
             const isCurrentUser = sender?.id === currentUserId;
+            const isNewLine = newChatIds.includes(chat.id);
+
             return (
               <Container key={chat.id}>
                 {isCurrentUser ? (
                   <MyChat>
-                    {chat.text.slice(0, -1).map((t, index) => (
-                      <MyChatText key={index}>{t}</MyChatText>
-                    ))}
                     <MyLastChat>
                       <ChatTime>{chat.time}</ChatTime>
-                      <MyChatText>{chat.text[chat.text.length - 1]}</MyChatText>
+                      <MyChatText isNewLine={isNewLine}>
+                        {chat.text[0]}
+                      </MyChatText>
                     </MyLastChat>
                   </MyChat>
                 ) : (
@@ -78,12 +79,9 @@ export function ChatContent() {
                       >
                         {sender?.name}
                       </UserName>
-                      {chat.text.slice(0, -1).map((t, index) => (
-                        <OtherChatText key={index}>{t}</OtherChatText>
-                      ))}
                       <OtherLastChat>
-                        <OtherChatText>
-                          {chat.text[chat.text.length - 1]}
+                        <OtherChatText isNewLine={isNewLine}>
+                          {chat.text[0]}
                         </OtherChatText>
                         <ChatTime>{chat.time}</ChatTime>
                       </OtherLastChat>
@@ -100,12 +98,15 @@ export function ChatContent() {
   );
 }
 
+// 스타일링 코드
+
 const Wrapper = styled.div`
   ${({ theme }) => theme.scroll.none};
   padding: 0 1.25rem;
   overflow-y: auto;
   height: 100%;
 `;
+
 const Container = styled.div`
   margin-bottom: 1rem;
 `;
@@ -122,13 +123,15 @@ const ChatDate = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray50};
   margin: 1.5rem 0;
 `;
+
 const MyChat = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 0.25rem;
 `;
-const MyChatText = styled.div`
+
+const MyChatText = styled.div<{ isNewLine: boolean }>`
   ${({ theme }) => theme.font.Body_1_med};
   color: ${({ theme }) => theme.color.gray100};
   background-color: ${({ theme }) => theme.color.palepink1};
@@ -138,11 +141,44 @@ const MyChatText = styled.div`
   word-wrap: break-word;
   flex-grow: 0;
   align-self: flex-end;
+  ${({ isNewLine }) =>
+    isNewLine &&
+    css`
+      animation: ${jelloHorizontal} 0.9s both;
+    `}
 `;
 
 const MyLastChat = styled.div`
   display: flex;
   justify-content: flex-end;
+  gap: 0.25rem;
+`;
+
+const OtherChat = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const OtherChatText = styled.div<{ isNewLine: boolean }>`
+  ${({ theme }) => theme.font.Body_1_med};
+  color: ${({ theme }) => theme.color.gray100};
+  background-color: white;
+  max-width: 13.8125rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.75rem;
+  word-wrap: break-word;
+  flex-grow: 0;
+  align-self: flex-start;
+  ${({ isNewLine }) =>
+    isNewLine &&
+    css`
+      animation: ${jelloHorizontal} 0.9s both;
+    `}
+`;
+
+const OtherLastChat = styled.div`
+  display: flex;
+  justify-content: flex-start;
   gap: 0.25rem;
 `;
 
@@ -158,27 +194,6 @@ const ChatTime = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray50};
   align-content: flex-end;
-`;
-const OtherChat = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-const OtherChatText = styled.div`
-  ${({ theme }) => theme.font.Body_1_med};
-  color: ${({ theme }) => theme.color.gray100};
-  background-color: white;
-  max-width: 13.8125rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.75rem;
-  word-wrap: break-word;
-  flex-grow: 0;
-  align-self: flex-start;
-`;
-
-const OtherLastChat = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  gap: 0.25rem;
 `;
 
 const UserImg = styled.img`

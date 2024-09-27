@@ -37,15 +37,7 @@ const useChatStore = create<chatStore>((set) => ({
         );
 
         if (existingDate) {
-          const updatedChats = existingDate.chats.some(
-            (chat) => chat.time === newChat.time
-          )
-            ? existingDate.chats.map((chat) =>
-                chat.time === newChat.time
-                  ? { ...chat, text: [...chat.text, ...newChat.text] }
-                  : chat
-              )
-            : [...existingDate.chats, newChat];
+          const updatedChats = [...existingDate.chats, newChat];
 
           return {
             ...room,

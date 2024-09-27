@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { MobileTop } from "../components/MobileTop";
 import { ChatTitle } from "../components/ChattingRoom/ChatTitle";
@@ -6,14 +7,19 @@ import { ChatContent } from "../components/ChattingRoom/ChatContent";
 import { ChatBottom } from "../components/ChattingRoom/ChatBottom";
 
 const ChattingPage = () => {
+  const [newChatIds, setNewChatIds] = useState<number[]>([]);
+  const handleNewChat = (id: number) => {
+    setNewChatIds((prevIds) => [...prevIds, id]);
+  };
+
   return (
     <Wrapper>
       <MobileTop />
       <ChatTitle />
       <ChatContentStyle>
-        <ChatContent />
+        <ChatContent newChatIds={newChatIds} />
       </ChatContentStyle>
-      <ChatInput />
+      <ChatInput onNewChat={handleNewChat} />
       <ChatBottom />
     </Wrapper>
   );

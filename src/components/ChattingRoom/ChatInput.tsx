@@ -6,10 +6,9 @@ import { useCurrentUserId } from "../hooks/useUser";
 import styled from "styled-components";
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
-export function ChatInput() {
+export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
   const { currentUserId } = useCurrentUserId();
   const addChat = useChatStore((state) => state.addChat);
-  const chatByRooms = useChatStore((state) => state.chatByRooms);
   const { roomId } = useParams<{ roomId: string }>();
 
   // useRef를 활용하여 textarea의 DOM 요소에 접근, 사용자가 입력한 텍스트 길이에 따라 textarea의 높이 조절
@@ -40,6 +39,8 @@ export function ChatInput() {
 
     addChat(Number(roomId), newChat, newDate);
     setValue("");
+
+    onNewChat(newChat.id);
   };
 
   // 엔터키로 전송할 수 있도록 처리 (Shift + Enter로 줄바꿈)

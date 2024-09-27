@@ -2,12 +2,12 @@ import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import useChatroomStore from "../../stores/ChatroomStore";
 import useUserStore from "../../stores/UserStore";
-import { getCurrentUserId } from "../hooks/useUser";
+import { useCurrentUserId } from "../hooks/useUser";
 import styled from "styled-components";
 
 export function ChatContent() {
   const { roomId } = useParams<{ roomId: string }>();
-  const currentUserId = getCurrentUserId();
+  const currentUserId = useCurrentUserId();
   const users = useUserStore((state) => state.users);
   const allChats = useChatStore((state) =>
     state.chatByRooms.find((room) => room.roomId === Number(roomId))

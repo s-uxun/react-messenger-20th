@@ -1,11 +1,17 @@
 import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
+import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import { newDate, getCurrentTime } from "../hooks/useTime";
-import { getCurrentUserId } from "../hooks/useUser";
+import { useCurrentUserId } from "../hooks/useUser";
 import styled from "styled-components";
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
 export function ChatInput() {
+  const currentUserId = useCurrentUserId();
+  const addChat = useChatStore((state) => state.addChat);
+  const chatByRooms = useChatStore((state) => state.chatByRooms);
+  const { roomId } = useParams<{ roomId: string }>();
+
   // useRef를 활용하여 textarea의 DOM 요소에 접근, 사용자가 입력한 텍스트 길이에 따라 textarea의 높이 조절
   const [value, setValue] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -22,19 +28,26 @@ export function ChatInput() {
     setValue(e.target.value);
   };
 
-  const addChat = useChatStore((state) => state.addChat);
-  const currentUserId = getCurrentUserId();
-
   const handleSend = () => {
-    if (!value.trim()) return; // 입력값 없으면 전송 X
+    if (!value.trim() || !currentUserId || !roomId) return; // 입력값이나 현재 유저 id나 채팅방 id가 없으면 전송 X
 
-    const newChatDate = newDate;
     const newChat = {
       id: Date.now(),
       senderId: currentUserId,
-      text: value,
+      text: [value],
       time: getCurrentTime(),
     };
+
+    addChat(Number(roomId), newChat, newDate);
+    setValue("");
+  };
+
+  // 엔터키로 전송할 수 있도록 처리 (Shift + Enter로 줄바꿈)
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   // 조건부 렌더링으로 아이콘 지정
@@ -44,10 +57,15 @@ export function ChatInput() {
     <Container>
       <StyledIcon as={Plus} />
       <InputBox>
-        <Textarea ref={textareaRef} value={value} onChange={handleChange} />
+        <Textarea
+          ref={textareaRef}
+          value={value}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
         <Icons>
           <StyledIcon as={Emoji} style={{ marginRight: "0.5rem" }} />
-          <StyledIcon as={LastIcon} />
+          <StyledIcon as={LastIcon} onClick={handleSend} />
         </Icons>
       </InputBox>
     </Container>

@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
-import useChatroomStore from "../../stores/ChatroomStore";
 import useUserStore from "../../stores/UserStore";
+import { Profile } from "../../assets/icons";
 import { useCurrentUserId } from "../hooks/useUser";
-import styled from "styled-components";
+import { styled, useTheme } from "styled-components";
 
 export function ChatContent() {
   const { roomId } = useParams<{ roomId: string }>();
@@ -13,16 +13,28 @@ export function ChatContent() {
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
   )?.allChats;
 
+  //랜덤으로 프로필 svg 색상 지정
+  const theme = useTheme();
+  const profileColors = [
+    theme.color.pink,
+    theme.color.palepink1,
+    theme.color.palepink2,
+    theme.color.lavender,
+  ];
+  const getUserColor = (userId: number) => {
+    return profileColors[userId % profileColors.length];
+  };
+
   return (
     <Wrapper>
       {allChats?.map((chatDate) => (
         <div key={chatDate.date}>
-          <ChatDate>{chatDate.date}</ChatDate>
-
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <ChatDate>{chatDate.date}</ChatDate>
+          </div>
           {chatDate.chats.map((chat) => {
             const sender = users.find((user) => user.id === chat.senderId);
             const isCurrentUser = sender?.id === currentUserId;
-
             return (
               <Container key={chat.id}>
                 {isCurrentUser ? (
@@ -34,6 +46,13 @@ export function ChatContent() {
                   </MyChat>
                 ) : (
                   <OtherChat>
+                    {sender?.img ? (
+                      <UserImg src={sender.img} alt={sender.name} />
+                    ) : (
+                      <Profile
+                        style={{ color: getUserColor(sender?.id || 0) }}
+                      /> // 이미지가 없는 경우 랜덤 색상의 프로필 아이콘 렌더링
+                    )}
                     <UserName
                       onClick={() =>
                         setCurrentUserId(Number(roomId), sender?.id || 0)
@@ -58,10 +77,21 @@ export function ChatContent() {
 
 const Wrapper = styled.div``;
 const Container = styled.div``;
-const ChatDate = styled.div``;
+const ChatDate = styled.div`
+  ${({ theme }) => theme.font.Caption_med};
+  color: ${({ theme }) => theme.color.gray50};
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid ${({ theme }) => theme.color.gray50};
+`;
 const MyChat = styled.div``;
 const MyChatText = styled.div``;
 const UserName = styled.div``;
 const ChatTime = styled.div``;
 const OtherChat = styled.div``;
 const OtherChatText = styled.div``;
+const UserImg = styled.img``;

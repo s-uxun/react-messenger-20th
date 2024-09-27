@@ -149,6 +149,7 @@ const UserName = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray70};
   margin-bottom: 0.25rem;
+  cursor: url(https://s-uxun.github.io/CDN/Rainbow.cur), pointer;
 `;
 const ChatTime = styled.div`
   ${({ theme }) => theme.font.Caption_med};

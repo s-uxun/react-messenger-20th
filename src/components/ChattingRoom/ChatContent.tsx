@@ -47,7 +47,10 @@ export function ChatContent() {
                 ) : (
                   <OtherChat>
                     {sender?.img ? (
-                      <UserImg src={sender.img} alt={sender.name} />
+                      <UserImg
+                        src={require(`../../assets/images/${sender?.img}`)}
+                        alt={sender.name}
+                      />
                     ) : (
                       <Profile
                         style={{ color: getUserColor(sender?.id || 0) }}
@@ -94,4 +97,6 @@ const UserName = styled.div``;
 const ChatTime = styled.div``;
 const OtherChat = styled.div``;
 const OtherChatText = styled.div``;
-const UserImg = styled.img``;
+const UserImg = styled.img`
+  border-radius: 50%;
+`;

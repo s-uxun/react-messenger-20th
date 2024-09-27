@@ -39,12 +39,13 @@ export function ChatContent() {
               <Container key={chat.id}>
                 {isCurrentUser ? (
                   <MyChat>
-                    <ChatTime>{chat.time}</ChatTime>
-                    <FlexColumn>
-                      {chat.text.map((t, index) => (
-                        <MyChatText key={index}>{t}</MyChatText>
-                      ))}
-                    </FlexColumn>
+                    {chat.text.slice(0, -1).map((t, index) => (
+                      <MyChatText key={index}>{t}</MyChatText>
+                    ))}
+                    <MyLastChat>
+                      <ChatTime>{chat.time}</ChatTime>
+                      <MyChatText>{chat.text[chat.text.length - 1]}</MyChatText>
+                    </MyLastChat>
                   </MyChat>
                 ) : (
                   <OtherChat>
@@ -66,11 +67,16 @@ export function ChatContent() {
                       >
                         {sender?.name}
                       </UserName>
-                      {chat.text.map((t, index) => (
+                      {chat.text.slice(0, -1).map((t, index) => (
                         <OtherChatText key={index}>{t}</OtherChatText>
                       ))}
+                      <OtherLastChat>
+                        <OtherChatText>
+                          {chat.text[chat.text.length - 1]}
+                        </OtherChatText>
+                        <ChatTime>{chat.time}</ChatTime>
+                      </OtherLastChat>
                     </FlexColumn>
-                    <ChatTime>{chat.time}</ChatTime>
                   </OtherChat>
                 )}
               </Container>
@@ -102,22 +108,28 @@ const ChatDate = styled.div`
 `;
 const MyChat = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-end;
+  gap: 0.25rem;
 `;
 const MyChatText = styled.div`
   ${({ theme }) => theme.font.Body_1_med};
   color: ${({ theme }) => theme.color.gray100};
   background-color: ${({ theme }) => theme.color.palepink1};
   max-width: 13.8125rem;
-  display: inline-block;
   padding: 0.375rem 0.75rem;
   border-radius: 0.75rem;
   word-wrap: break-word;
   flex-grow: 0;
   align-self: flex-end;
-  margin-left: 0.25rem;
 `;
+
+const MyLastChat = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+`;
+
 const UserName = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray70};
@@ -137,14 +149,19 @@ const OtherChatText = styled.div`
   color: ${({ theme }) => theme.color.gray100};
   background-color: white;
   max-width: 13.8125rem;
-  display: inline-block;
   padding: 0.375rem 0.75rem;
   border-radius: 0.75rem;
   word-wrap: break-word;
   flex-grow: 0;
   align-self: flex-start;
-  margin-right: 0.25rem;
 `;
+
+const OtherLastChat = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.25rem;
+`;
+
 const UserImg = styled.img`
   border-radius: 50%;
   width: 2.25rem;

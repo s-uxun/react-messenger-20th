@@ -82,8 +82,12 @@ export function ChatContent() {
   );
 }
 
-const Wrapper = styled.div``;
-const Container = styled.div``;
+const Wrapper = styled.div`
+  padding: 0 1.25rem;
+`;
+const Container = styled.div`
+  margin-bottom: 1rem;
+`;
 const ChatDate = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray50};
@@ -94,6 +98,7 @@ const ChatDate = styled.div`
   padding: 0.25rem 0.5rem;
   border-radius: 0.75rem;
   border: 1px solid ${({ theme }) => theme.color.gray50};
+  margin: 1.5rem 0;
 `;
 const MyChat = styled.div`
   display: flex;
@@ -111,10 +116,12 @@ const MyChatText = styled.div`
   word-wrap: break-word;
   flex-grow: 0;
   align-self: flex-end;
+  margin-left: 0.25rem;
 `;
 const UserName = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray70};
+  margin-bottom: 0.5rem;
 `;
 const ChatTime = styled.div`
   ${({ theme }) => theme.font.Caption_med};
@@ -136,16 +143,19 @@ const OtherChatText = styled.div`
   word-wrap: break-word;
   flex-grow: 0;
   align-self: flex-start;
+  margin-right: 0.25rem;
 `;
 const UserImg = styled.img`
   border-radius: 50%;
   width: 2.25rem;
   height: 2.25rem;
+  margin-right: 0.5rem;
 `;
 
 const StyledProfile = styled(Profile)`
   width: 2.25rem;
   height: 2.25rem;
+  margin-right: 0.5rem;
 `;
 
 const FlexCenter = styled.div`
@@ -156,4 +166,5 @@ const FlexCenter = styled.div`
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 `;

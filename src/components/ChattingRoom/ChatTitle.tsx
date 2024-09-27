@@ -13,7 +13,6 @@ export function ChatTitle() {
   const chatrooms = useChatroomStore((state) => state.chatrooms);
   const chatroom = chatrooms.find((room) => room.id === Number(roomId));
   const users = useUserStore((state) => state.users);
-  const { currentUserId } = useCurrentUserId();
 
   //채팅방 title이 없을 경우엔 그룹채팅(3명 이상), 혹은 상대방 이름 할당. 만약 없을 경우엔 '알 수 없음' 할당.
   const getTitle = (

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import useUserStore from "../../stores/UserStore";
@@ -13,7 +14,7 @@ export function ChatContent() {
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
   )?.allChats;
 
-  //랜덤으로 프로필 svg 색상 지정
+  // 랜덤으로 프로필 svg 색상 지정
   const theme = useTheme();
   const profileColors = [
     theme.color.pink,
@@ -24,6 +25,15 @@ export function ChatContent() {
   const getUserColor = (userId: number) => {
     return profileColors[userId % profileColors.length];
   };
+
+  // 채팅 보내면 자동으로 밑으로 스크롤
+  const lastChatRef = useRef<HTMLDivElement>(null);
+  const autoScroll = () => {
+    lastChatRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    autoScroll();
+  }, [allChats]);
 
   return (
     <Wrapper>
@@ -84,12 +94,14 @@ export function ChatContent() {
           })}
         </div>
       ))}
+      <div ref={lastChatRef} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   padding: 0 1.25rem;
+  overflow-y: auto;
 `;
 const Container = styled.div`
   margin-bottom: 1rem;
@@ -133,7 +145,7 @@ const MyLastChat = styled.div`
 const UserName = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray70};
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 `;
 const ChatTime = styled.div`
   ${({ theme }) => theme.font.Caption_med};

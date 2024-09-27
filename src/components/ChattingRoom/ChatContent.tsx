@@ -193,7 +193,7 @@ const MyChatText = styled.div<{ isNewLine: boolean }>`
   ${({ isNewLine }) =>
     isNewLine &&
     css`
-      animation: ${jelloHorizontal} 0.9s both;
+      animation: ${jelloHorizontal} 0.7s both;
     `}
 `;
 
@@ -231,7 +231,7 @@ const UserName = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray70};
   margin-bottom: 0.25rem;
-  cursor: pointer;
+  cursor: url(https://s-uxun.github.io/CDN/Rainbow.cur), pointer;
   width: fit-content;
 `;
 

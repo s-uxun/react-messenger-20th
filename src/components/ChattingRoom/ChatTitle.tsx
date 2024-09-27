@@ -87,16 +87,17 @@ const Right = styled.div`
 `;
 
 const AllNum = styled.p`
-  ${({ theme }) => theme.font.Body_2_med}
-  color: ${({ theme }) => theme.color.gray80}
+  ${({ theme }) => theme.font.Body_2_med};
+  color: ${({ theme }) => theme.color.gray80};
+  margin-right: 1.3rem;
 `;
 
 const Title = styled.p`
-  ${({ theme }) => theme.font.Headline3}
-  color: ${({ theme }) => theme.color.gray100}
+  ${({ theme }) => theme.font.Headline3};
+  color: ${({ theme }) => theme.color.gray100};
 `;
 
 const Num = styled.p`
-  ${({ theme }) => theme.font.Subhead_med}
-  color: ${({ theme }) => theme.color.gray50}
+  ${({ theme }) => theme.font.Subhead_med};
+  color: ${({ theme }) => theme.color.gray50};
 `;

@@ -4,6 +4,7 @@ import { Menu } from "../../assets/icons";
 import { useParams } from "react-router-dom";
 import useChatroomStore from "../../stores/ChatroomStore";
 import useUserStore from "../../stores/UserStore";
+import { useCurrentUserId } from "../hooks/useUser";
 
 import styled from "styled-components";
 
@@ -12,6 +13,7 @@ export function ChatTitle() {
   const chatrooms = useChatroomStore((state) => state.chatrooms);
   const chatroom = chatrooms.find((room) => room.id === Number(roomId));
   const users = useUserStore((state) => state.users);
+  const { currentUserId } = useCurrentUserId();
 
   //채팅방 title이 없을 경우엔 그룹채팅(3명 이상), 혹은 상대방 이름 할당. 만약 없을 경우엔 '알 수 없음' 할당.
   const getTitle = (
@@ -22,10 +24,9 @@ export function ChatTitle() {
     if (title) return title;
 
     if (userIds.length === 2) {
-      const counterpart = users.find(
-        (user) => userIds.includes(user.id) && user.id !== currentUserId
+      return (
+        users.find((user) => user.id !== currentUserId)?.name || "(알 수 없음)"
       );
-      return counterpart?.name || "(알 수 없음)";
     }
     return "그룹채팅";
   };
@@ -39,7 +40,7 @@ export function ChatTitle() {
       <Center>
         <Title>
           {getTitle(
-            chatroom?.title || "(알 수 없음)",
+            chatroom?.title || "",
             chatroom?.userIds || [],
             chatroom?.currentUserId || 1
           )}

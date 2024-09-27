@@ -29,9 +29,9 @@ export function ChatContent() {
     <Wrapper>
       {allChats?.map((chatDate) => (
         <div key={chatDate.date}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <FlexCenter>
             <ChatDate>{chatDate.date}</ChatDate>
-          </div>
+          </FlexCenter>
           {chatDate.chats.map((chat) => {
             const sender = users.find((user) => user.id === chat.senderId);
             const isCurrentUser = sender?.id === currentUserId;
@@ -39,10 +39,12 @@ export function ChatContent() {
               <Container key={chat.id}>
                 {isCurrentUser ? (
                   <MyChat>
-                    {chat.text.map((t, index) => (
-                      <MyChatText key={index}>{t}</MyChatText>
-                    ))}
                     <ChatTime>{chat.time}</ChatTime>
+                    <FlexColumn>
+                      {chat.text.map((t, index) => (
+                        <MyChatText key={index}>{t}</MyChatText>
+                      ))}
+                    </FlexColumn>
                   </MyChat>
                 ) : (
                   <OtherChat>
@@ -52,20 +54,22 @@ export function ChatContent() {
                         alt={sender.name}
                       />
                     ) : (
-                      <Profile
+                      <StyledProfile
                         style={{ color: getUserColor(sender?.id || 0) }}
-                      /> // 이미지가 없는 경우 랜덤 색상의 프로필 아이콘 렌더링
+                      />
                     )}
-                    <UserName
-                      onClick={() =>
-                        setCurrentUserId(Number(roomId), sender?.id || 0)
-                      }
-                    >
-                      {sender?.name}
-                    </UserName>
-                    {chat.text.map((t, index) => (
-                      <OtherChatText key={index}>{t}</OtherChatText>
-                    ))}
+                    <FlexColumn>
+                      <UserName
+                        onClick={() =>
+                          setCurrentUserId(Number(roomId), sender?.id || 0)
+                        }
+                      >
+                        {sender?.name}
+                      </UserName>
+                      {chat.text.map((t, index) => (
+                        <OtherChatText key={index}>{t}</OtherChatText>
+                      ))}
+                    </FlexColumn>
                     <ChatTime>{chat.time}</ChatTime>
                   </OtherChat>
                 )}
@@ -91,12 +95,65 @@ const ChatDate = styled.div`
   border-radius: 0.75rem;
   border: 1px solid ${({ theme }) => theme.color.gray50};
 `;
-const MyChat = styled.div``;
-const MyChatText = styled.div``;
-const UserName = styled.div``;
-const ChatTime = styled.div``;
-const OtherChat = styled.div``;
-const OtherChatText = styled.div``;
+const MyChat = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+const MyChatText = styled.div`
+  ${({ theme }) => theme.font.Body_1_med};
+  color: ${({ theme }) => theme.color.gray100};
+  background-color: ${({ theme }) => theme.color.palepink1};
+  max-width: 13.8125rem;
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.75rem;
+  word-wrap: break-word;
+  flex-grow: 0;
+  align-self: flex-end;
+`;
+const UserName = styled.div`
+  ${({ theme }) => theme.font.Caption_med};
+  color: ${({ theme }) => theme.color.gray70};
+`;
+const ChatTime = styled.div`
+  ${({ theme }) => theme.font.Caption_med};
+  color: ${({ theme }) => theme.color.gray50};
+  align-content: flex-end;
+`;
+const OtherChat = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const OtherChatText = styled.div`
+  ${({ theme }) => theme.font.Body_1_med};
+  color: ${({ theme }) => theme.color.gray100};
+  background-color: white;
+  max-width: 13.8125rem;
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.75rem;
+  word-wrap: break-word;
+  flex-grow: 0;
+  align-self: flex-start;
+`;
 const UserImg = styled.img`
   border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+`;
+
+const StyledProfile = styled(Profile)`
+  width: 2.25rem;
+  height: 2.25rem;
+`;
+
+const FlexCenter = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

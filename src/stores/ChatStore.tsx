@@ -32,13 +32,11 @@ const useChatStore = create<chatStore>((set) => ({
       chatByRooms: state.chatByRooms.map((room) => {
         if (room.roomId !== roomId) return room;
 
-        // 날짜 확인, 없으면 추가
         const existingDate = room.allChats.find(
           (chatDate) => chatDate.date === newChatDate
         );
 
         if (existingDate) {
-          // 시간 확인 후 메시지 추가 또는 새로운 시간에 메시지 추가
           const updatedChats = existingDate.chats.some(
             (chat) => chat.time === newChat.time
           )
@@ -59,7 +57,6 @@ const useChatStore = create<chatStore>((set) => ({
           };
         }
 
-        // 새로운 날짜의 경우 추가
         return {
           ...room,
           allChats: [...room.allChats, { date: newChatDate, chats: [newChat] }],

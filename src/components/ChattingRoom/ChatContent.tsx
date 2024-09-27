@@ -100,12 +100,15 @@ export function ChatContent() {
 }
 
 const Wrapper = styled.div`
+  ${({ theme }) => theme.scroll.none};
   padding: 0 1.25rem;
   overflow-y: auto;
+  height: 100%;
 `;
 const Container = styled.div`
   margin-bottom: 1rem;
 `;
+
 const ChatDate = styled.div`
   ${({ theme }) => theme.font.Caption_med};
   color: ${({ theme }) => theme.color.gray50};

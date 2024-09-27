@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 export function ChatContent() {
   const { roomId } = useParams<{ roomId: string }>();
-  const currentUserId = useCurrentUserId();
+  const { currentUserId, setCurrentUserId } = useCurrentUserId();
   const users = useUserStore((state) => state.users);
   const allChats = useChatStore((state) =>
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
@@ -34,7 +34,13 @@ export function ChatContent() {
                   </MyChat>
                 ) : (
                   <OtherChat>
-                    <UserName>{sender?.name}</UserName>
+                    <UserName
+                      onClick={() =>
+                        setCurrentUserId(Number(roomId), sender?.id || 0)
+                      }
+                    >
+                      {sender?.name}
+                    </UserName>
                     {chat.text.map((t, index) => (
                       <OtherChatText key={index}>{t}</OtherChatText>
                     ))}

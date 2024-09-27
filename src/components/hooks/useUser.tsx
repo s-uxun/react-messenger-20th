@@ -7,5 +7,7 @@ export function useCurrentUserId() {
     state.chatrooms.find((room) => room.id === Number(roomId))
   )?.currentUserId;
 
-  return currentUserId;
+  const setCurrentUserId = useChatroomStore((state) => state.setCurrentUserId);
+
+  return { currentUserId, setCurrentUserId };
 }

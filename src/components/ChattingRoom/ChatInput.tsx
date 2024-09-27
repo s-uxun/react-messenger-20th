@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
 export function ChatInput() {
-  const currentUserId = useCurrentUserId();
+  const { currentUserId } = useCurrentUserId();
   const addChat = useChatStore((state) => state.addChat);
   const chatByRooms = useChatStore((state) => state.chatByRooms);
   const { roomId } = useParams<{ roomId: string }>();

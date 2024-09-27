@@ -10,10 +10,18 @@ type chatroom = {
 
 type chatroomStore = {
   chatrooms: chatroom[];
+  setCurrentUserId: (roomId: number, userId: number) => void;
 };
 
 const useChatroomStore = create<chatroomStore>((set) => ({
   chatrooms: Chatroom,
+
+  setCurrentUserId: (roomId: number, userId: number) =>
+    set((state) => ({
+      chatrooms: state.chatrooms.map((room) =>
+        room.id === roomId ? { ...room, currentUserId: userId } : room
+      ),
+    })),
 }));
 
 export default useChatroomStore;

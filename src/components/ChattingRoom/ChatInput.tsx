@@ -88,7 +88,7 @@ const InputBox = styled.div`
   flex-grow: 1;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 0.375rem 0.75rem;
+  padding: 0.3rem 0.75rem;
   column-gap: 0.5rem;
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;

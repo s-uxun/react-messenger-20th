@@ -13,31 +13,31 @@
           },
           {
             "id": 2,
-            "senderId": 1,
+            "senderId": 3,
             "text": "Acrobat에 pdf 압축 있음 ㄱㄱ",
             "time": "오전 12:07"
           },
           {
             "id": 3,
-            "senderId": 3,
+            "senderId": 4,
             "text": "그거 설정 어케 만져야...??",
             "time": "오전 12:20"
           },
           {
             "id": 4,
-            "senderId": 3,
+            "senderId": 4,
             "text": "이번 거 380인데 230까지 밖에 안 줄여지네ㅜ",
             "time": "오전 12:20"
           },
           {
             "id": 5,
-            "senderId": 1,
+            "senderId": 3,
             "text": "흠냐링........",
             "time": "오전 12:30"
           },
           {
             "id": 6,
-            "senderId": 1,
+            "senderId": 3,
             "text": "크게 유의미하지는 않았지만.. 다운받아서 보라고 하죠머",
             "time": "오전 12:30"
           },

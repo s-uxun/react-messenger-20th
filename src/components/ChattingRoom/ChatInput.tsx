@@ -47,6 +47,7 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
+      setValue("");
       handleSend();
     }
   };

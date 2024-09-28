@@ -50,9 +50,11 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
     onNewChat(newChat.id);
   };
 
+  // 한글 조합 문제 해결
+  const [isComposing, setIsComposing] = useState<boolean>(false);
   // 엔터키로 전송할 수 있도록 처리 (Shift + Enter로 줄바꿈)
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
-    if (e.key === "Enter" && !e.shiftKey) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>): void => {
+    if (e.key === "Enter" && !e.shiftKey && !isComposing) {
       e.preventDefault();
       handleSend();
     }
@@ -69,7 +71,9 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
           ref={textareaRef}
           value={value}
           onChange={handleChange}
-          onKeyUp={handleKeyUp}
+          onKeyDown={handleKeyDown}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
         />
         <Icons>
           <StyledIcon as={Emoji} style={{ marginRight: "0.5rem" }} />

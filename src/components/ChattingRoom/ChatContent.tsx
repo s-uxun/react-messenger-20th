@@ -57,7 +57,9 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
     lastChatRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
-    autoScroll();
+    setTimeout(() => {
+      autoScroll();
+    }, 0);
   }, [newChatIds]);
 
   // 같은 time(~시 ~분)동안 보낸 메시지들 그룹화하기

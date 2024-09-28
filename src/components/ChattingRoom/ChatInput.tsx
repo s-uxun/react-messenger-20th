@@ -88,12 +88,12 @@ const InputBox = styled.div`
   flex-grow: 1;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 0.3rem 0.75rem;
+  padding: 0.15rem 0.75rem;
   column-gap: 0.5rem;
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
   border: 1px solid ${({ theme }) => theme.color.gray40};
-  max-width: calc(100% - 2.5rem);
+  max-width: calc(100% - 2rem);
 `;
 
 const Textarea = styled.textarea`

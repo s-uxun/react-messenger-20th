@@ -100,7 +100,7 @@ const InputBox = styled.div<{ isChanged: boolean }>`
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: ${({ isChanged }) => (isChanged ? "1rem" : "1.875rem")};
   border: 1px solid ${({ theme }) => theme.color.gray40};
-  max-width: calc(100% - 2.8rem);
+  max-width: calc(100% - 2rem);
 `;
 
 const Textarea = styled.textarea`

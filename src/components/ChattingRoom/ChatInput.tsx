@@ -43,14 +43,9 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
     onNewChat(newChat.id);
   };
 
-  // 엔터키로 전송할 수 있도록 처리 (Shift + Enter로 줄바꿈)
+  // 엔터키로 전송할 수 있도록 처리 (Shift + Enter로 줄바꿈), 그리고 isComposing을 통해 한글 조합이 완료된 상태에서만 제출되도록 함
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.nativeEvent.isComposing) {
-      // 한글 조합 중일 때는 이벤트 처리를 하지 않도록 함으로써 마지막 글자가 두 번 제출되는 오류 방지
-      return;
-    }
-
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       handleSend();
     }

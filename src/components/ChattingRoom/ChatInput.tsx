@@ -88,7 +88,7 @@ const InputBox = styled.div`
   flex-grow: 1;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 0.15rem 0.75rem;
+  padding: 0.375rem 0.75rem;
   column-gap: 0.5rem;
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: 1.875rem;
@@ -98,12 +98,14 @@ const InputBox = styled.div`
 
 const Textarea = styled.textarea`
   ${({ theme }) => theme.font.Body_1_med};
+  margin: 0 0 0.1rem 0;
+  padding: 0;
   flex-grow: 1;
   max-height: 4.5rem;
   resize: none;
   outline: none;
   border: none;
-  background-color: ${({ theme }) => theme.color.gray5};
+  background-color: transparent;
   ${({ theme }) => theme.scroll.none};
 `;
 

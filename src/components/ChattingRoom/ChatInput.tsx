@@ -13,6 +13,7 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
 
   // useRef를 활용하여 textarea의 DOM 요소에 접근, 사용자가 입력한 텍스트 길이에 따라 textarea의 높이 조절
   const [value, setValue] = useState<string>("");
+  const [isChanged, setIsChanged] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -20,6 +21,12 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
     if (textarea) {
       textarea.style.height = "1.5rem";
       textarea.style.height = `${textarea.scrollHeight}px`;
+
+      if (textarea.scrollHeight > 24) {
+        setIsChanged(true);
+      } else {
+        setIsChanged(false);
+      }
     }
   }, [value]);
 
@@ -57,7 +64,7 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
   return (
     <Container>
       <StyledIcon as={Plus} />
-      <InputBox>
+      <InputBox isChanged={isChanged}>
         <Textarea
           ref={textareaRef}
           value={value}
@@ -83,7 +90,7 @@ const Container = styled.div`
   max-width: 100vw;
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.div<{ isChanged: boolean }>`
   display: flex;
   flex-grow: 1;
   align-items: flex-end;
@@ -91,7 +98,7 @@ const InputBox = styled.div`
   padding: 0.375rem 0.75rem;
   column-gap: 0.5rem;
   background-color: ${({ theme }) => theme.color.gray5};
-  border-radius: 1.875rem;
+  border-radius: ${({ isChanged }) => (isChanged ? "1rem" : "1.875rem")};
   border: 1px solid ${({ theme }) => theme.color.gray40};
   max-width: calc(100% - 2rem);
 `;

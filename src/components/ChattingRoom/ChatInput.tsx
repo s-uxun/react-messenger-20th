@@ -95,17 +95,17 @@ const InputBox = styled.div<{ isChanged: boolean }>`
   flex-grow: 1;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 0.375rem 0.75rem;
+  padding: 0.37rem 0.75rem;
   column-gap: 0.5rem;
   background-color: ${({ theme }) => theme.color.gray5};
   border-radius: ${({ isChanged }) => (isChanged ? "1rem" : "1.875rem")};
   border: 1px solid ${({ theme }) => theme.color.gray40};
-  max-width: calc(100% - 2rem);
+  max-width: calc(100% - 2.5rem);
 `;
 
 const Textarea = styled.textarea`
   ${({ theme }) => theme.font.Body_1_med};
-  margin: 0 0 0.1rem 0;
+  margin: 0 0 0.1rem;
   padding: 0;
   flex-grow: 1;
   max-height: 4.5rem;

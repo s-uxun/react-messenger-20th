@@ -98,7 +98,7 @@ const InputBox = styled.div<{ isChanged: boolean }>`
   padding: 0.36rem 0.75rem;
   column-gap: 0.5rem;
   background-color: ${({ theme }) => theme.color.gray5};
-  border-radius: ${({ isChanged }) => (isChanged ? "1rem" : "1.875rem")};
+  border-radius: ${({ isChanged }) => (isChanged ? "1rem" : "1.25rem")};
   border: 1px solid ${({ theme }) => theme.color.gray40};
   max-width: calc(100% - 2.3rem);
 `;

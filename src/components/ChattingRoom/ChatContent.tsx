@@ -58,7 +58,7 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
   };
   useEffect(() => {
     autoScroll();
-  }, [allChats]);
+  }, [newChatIds]);
 
   // 같은 time(~시 ~분)동안 보낸 메시지들 그룹화하기
   const groupMessages = (chats: Chat[]): GroupedChat[] =>

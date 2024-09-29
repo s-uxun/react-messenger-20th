@@ -49,9 +49,7 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
     addChat(Number(roomId), newChat, newDate);
     setValue("");
 
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
+    textareaRef.current?.focus();
 
     onNewChat(newChat.id);
   };

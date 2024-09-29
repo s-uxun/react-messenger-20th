@@ -193,6 +193,7 @@ const MyChatText = styled.div<{ isNewLine: boolean }>`
   border-radius: 0.75rem;
   word-wrap: break-word;
   align-self: flex-end;
+  white-space: pre-wrap;
   ${({ isNewLine }) =>
     isNewLine &&
     css`
@@ -222,6 +223,7 @@ const OtherChatText = styled.div`
   border-radius: 0.75rem;
   word-wrap: break-word;
   align-self: flex-start;
+  white-space: pre-wrap;
 `;
 
 const OtherLastChat = styled.div`

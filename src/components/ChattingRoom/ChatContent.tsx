@@ -58,9 +58,9 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
 
   // 디버깅 때문에 스크롤이 제대로 안 되어서 우선 timeout으로 했지만... 나중에 리팩토링할 예정
   useEffect(() => {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       autoScroll();
-    }, 0);
+    });
   }, [allChats]);
 
   // 같은 time(~시 ~분)동안 보낸 메시지들 그룹화하기

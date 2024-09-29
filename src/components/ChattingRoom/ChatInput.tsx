@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import { newDate, getCurrentTime } from "../hooks/useTime";
 import { useCurrentUserId } from "../hooks/useUser";
+import { useMobile } from "../hooks/useMobile";
 import styled from "styled-components";
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
 export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
   const { currentUserId } = useCurrentUserId();
+  const isMobile = useMobile();
   const addChat = useChatStore((state) => state.addChat);
   const { roomId } = useParams<{ roomId: string }>();
 
@@ -47,6 +49,10 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
     addChat(Number(roomId), newChat, newDate);
     setValue("");
 
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+
     onNewChat(newChat.id);
   };
 
@@ -54,6 +60,11 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.nativeEvent.isComposing) {
       // 한글 조합 중일 때는 이벤트 처리를 하지 않도록 함으로써 마지막 글자가 두 번 제출되는 오류 방지
+      return;
+    }
+
+    if (isMobile) {
+      // 모바일일 때는 엔터 키로 줄 바꿈 (제출 X)
       return;
     }
 
@@ -78,7 +89,11 @@ export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
         />
         <Icons>
           <StyledIcon as={Emoji} style={{ marginRight: "0.5rem" }} />
-          <StyledIcon as={LastIcon} onClick={handleSend} />
+          <StyledIcon
+            as={LastIcon}
+            onClick={handleSend}
+            onMouseDown={(e) => e.preventDefault()}
+          />
         </Icons>
       </InputBox>
     </Container>

@@ -5,6 +5,8 @@ export { default as HashTag } from "./HashTag";
 export { default as Menu } from "./Menu";
 export { default as MobileBar } from "./MobileBar";
 export { default as Plus } from "./Plus";
+export { default as PlusChat } from "./PlusChat";
 export { default as Profile } from "./Profile";
 export { default as Search } from "./Search";
 export { default as Send } from "./Send";
+export { default as Setting } from "./Setting";

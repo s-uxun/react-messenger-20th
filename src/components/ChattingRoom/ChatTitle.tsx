@@ -4,7 +4,6 @@ import { Menu } from "../../assets/icons";
 import { useParams } from "react-router-dom";
 import useChatroomStore from "../../stores/ChatroomStore";
 import useUserStore from "../../stores/UserStore";
-import { useCurrentUserId } from "../hooks/useUser";
 
 import styled from "styled-components";
 

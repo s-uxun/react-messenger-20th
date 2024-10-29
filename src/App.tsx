@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // 전역 스타일 설정
@@ -8,6 +8,7 @@ import Theme from "./styles/Theme";
 
 // 페이지 임포트
 import ChattingPage from "./pages/ChattingPage";
+import ChattingList from "./pages/ChattingList";
 
 function App() {
   // 뷰포트 높이 계산
@@ -23,9 +24,9 @@ function App() {
     <>
       <GlobalStyle />
       <ThemeProvider theme={Theme}>
-        {/*비록 이번 주 과제는 채팅 페이지 하나지만 다음을 위해 router로 구현했습니다. */}
         <Router>
           <Routes>
+            <Route path="/chatlist" element={<ChattingList />} />
             <Route path="/chatroom/:roomId" element={<ChattingPage />} />
           </Routes>
         </Router>

@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MobileTop } from "../components/MobileTop";
-import ListTitle from "../components/ChattingList/ListTitle";
+import { ListTitle } from "../components/ChattingList/ListTitle";
 import { ChatBottom } from "../components/ChattingRoom/ChatBottom";
+import ChatItem from "../components/ChattingList/ChatItem";
+import MenuBar from "../components/ChattingList/MenuBar";
 
 const ChattingList = () => {
   return (
     <Wrapper>
       <MobileTop />
       <ListTitle />
-      <ContentStyle></ContentStyle>
+      <ContentStyle>
+        <ChatItem />
+      </ContentStyle>
+      <MenuBar />
       <ChatBottom />
     </Wrapper>
   );
@@ -23,6 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const ContentStyle = styled.div`
+  ${({ theme }) => theme.scroll.none};
   flex-grow: 1;
   overflow-y: auto;
 `;

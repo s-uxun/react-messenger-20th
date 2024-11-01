@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import useUserStore from "../../stores/UserStore";
-import { Profile } from "../../assets/icons";
 import { useCurrentUserId } from "../hooks/useUser";
 import { jelloHorizontal } from "../../styles/Keyframe";
-import { styled, useTheme, css } from "styled-components";
+import { styled, css } from "styled-components";
+import { ReactNode } from "react";
 
 interface Chat {
   id: number;
@@ -27,7 +27,7 @@ interface ChatDate {
 
 interface User {
   id: number;
-  img?: string;
+  img: string | ReactNode;
   name: string;
 }
 
@@ -38,17 +38,6 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
   const allChats = useChatStore((state) =>
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
   )?.allChats;
-
-  // 랜덤으로 프로필 SVG 색상 지정
-  const theme = useTheme();
-  const profileColors = [
-    theme.color.pink,
-    theme.color.palepink1,
-    theme.color.lavender,
-  ];
-  const getUserColor = (userId: number) => {
-    return profileColors[userId % profileColors.length];
-  };
 
   // 채팅 보내면 자동으로 밑으로 스크롤
   const lastChatRef = useRef<HTMLDivElement>(null);
@@ -114,15 +103,13 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
                   </MyChat>
                 ) : (
                   <OtherChat>
-                    {sender?.img ? (
+                    {typeof sender?.img === "string" && sender?.img !== "" ? (
                       <UserImg
-                        src={require(`../../assets/images/${sender.img}`)}
-                        alt={sender.name}
+                        src={require(`../../assets/images/${sender?.img}`)}
+                        alt={sender?.name}
                       />
                     ) : (
-                      <StyledProfile
-                        style={{ color: getUserColor(sender?.id || 0) }}
-                      />
+                      <StyledProfile>{sender?.img}</StyledProfile>
                     )}
                     <FlexColumn>
                       <UserName
@@ -252,7 +239,7 @@ const UserImg = styled.img`
   height: 2.25rem;
 `;
 
-const StyledProfile = styled(Profile)`
+const StyledProfile = styled.div`
   width: 2.25rem;
   height: 2.25rem;
 `;

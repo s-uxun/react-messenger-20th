@@ -3,18 +3,21 @@
     "id": 1,
     "title": "CEOS",
     "userIds": [1, 2, 3, 4],
-    "currentUserId": 3
+    "currentUserId": 3,
+    "isFixed": true
   },
   {
     "id": 2,
     "title": "",
     "userIds": [1, 2],
-    "currentUserId": 1
+    "currentUserId": 1,
+    "isFixed": false
   },
   {
     "id": 3,
     "title": "세오스 디자인",
     "userIds": [1, 2, 3],
-    "currentUserId": 1
+    "currentUserId": 1,
+    "isFixed": true
   }
 ]

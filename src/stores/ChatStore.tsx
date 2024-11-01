@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import Chat from "./MockData/Chat.json";
+import ChatData from "./MockData/Chat.json";
 
 type chat = {
   id: number;
@@ -24,7 +24,7 @@ type chatStore = {
 };
 
 const useChatStore = create<chatStore>((set) => ({
-  chatByRooms: Chat,
+  chatByRooms: ChatData,
 
   // 오늘 날짜(newChatDate)에 해당하는 기존 데이터가 있으면 거기에 추가하고, 없으면 새 배열로 감싸서 추가하기
   addChat: (roomId: number, newChat: chat, newChatDate: string) =>

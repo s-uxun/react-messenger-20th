@@ -4,7 +4,7 @@ import { Setting } from "../../assets/icons";
 
 import styled from "styled-components";
 
-const ListTitle = () => {
+export function ListTitle() {
   return (
     <Contianer>
       <Left>채팅</Left>
@@ -15,9 +15,7 @@ const ListTitle = () => {
       </Right>
     </Contianer>
   );
-};
-
-export default ListTitle;
+}
 
 const Contianer = styled.div`
   display: flex;

@@ -4,47 +4,41 @@ import { OpenChat } from "../../assets/icons";
 import { Store } from "../../assets/icons";
 import { More } from "../../assets/icons";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MenuBar = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
 
   // url에 따라 동적으로 텍스트와 svg 색상을 변경
-  const isActive = (path: string) => currentPath.includes(path);
+  const menuItems = [
+    { path: "friendlist", label: "친구", Icon: Friend },
+    { path: "chatlist", label: "채팅", Icon: Chat },
+    { path: "openchatlist", label: "오픈채팅", Icon: OpenChat },
+    { path: "shopping", label: "쇼핑", Icon: Store },
+    { path: "setting", label: "더보기", Icon: More },
+  ];
 
   return (
     <Wrapper>
-      <Container isActive={isActive("friendlist")}>
-        <Icon>
-          <Friend color={isActive("friendlist") ? "#181A1B" : "#BFC2C8"} />
-        </Icon>
-        <p>친구</p>
-      </Container>
-      <Container isActive={isActive("chatlist")}>
-        <Icon>
-          <Chat color={isActive("chatlist") ? "#181A1B" : "#BFC2C8"} />
-        </Icon>
-        <p>채팅</p>
-      </Container>
-      <Container isActive={isActive("openchatlist")}>
-        <Icon>
-          <OpenChat color={isActive("openchatlist") ? "#181A1B" : "#BFC2C8"} />
-        </Icon>
-        <p>오픈채팅</p>
-      </Container>
-      <Container isActive={isActive("shopping")}>
-        <Icon>
-          <Store color={isActive("shopping") ? "#181A1B" : "#BFC2C8"} />
-        </Icon>
-        <p>쇼핑</p>
-      </Container>
-      <Container isActive={isActive("setting")}>
-        <Icon>
-          <More color={isActive("setting") ? "#181A1B" : "#BFC2C8"} />
-        </Icon>
-        <p>더보기</p>
-      </Container>
+      {menuItems.map(({ path, label, Icon }) => {
+        const isActive = currentPath.includes(path);
+        const iconColor = isActive ? "#181A1B" : "#BFC2C8";
+
+        return (
+          <Container
+            key={path}
+            isActive={isActive}
+            onClick={() => navigate(`/${path}`)}
+          >
+            <IconWrapper>
+              <Icon color={iconColor} />
+            </IconWrapper>
+            <p>{label}</p>
+          </Container>
+        );
+      })}
     </Wrapper>
   );
 };
@@ -74,7 +68,7 @@ const Container = styled.div<{ isActive: boolean }>`
   }
 `;
 
-const Icon = styled.div`
+const IconWrapper = styled.div`
   width: 1.5rem;
   height: 1.5rem;
 `;

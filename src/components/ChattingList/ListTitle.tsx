@@ -1,16 +1,34 @@
-import { Search } from "../../assets/icons";
-import { PlusChat } from "../../assets/icons";
-import { Setting } from "../../assets/icons";
-
+import {
+  Search,
+  PlusChat,
+  Setting,
+  AddFriend,
+  Headphone,
+} from "../../assets/icons";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 export function ListTitle() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const isFriendList = currentPath.includes("friendlist");
+  const isChatList = currentPath.includes("chatlist");
+
   return (
     <Contianer>
-      <Left>채팅</Left>
+      <Left>{isFriendList ? "친구" : isChatList ? "채팅" : ""}</Left>
       <Right>
         <Search style={{ width: "1.5rem", cursor: "pointer" }} />
-        <PlusChat style={{ width: "1.5rem", cursor: "pointer" }} />
+        {isFriendList && (
+          <>
+            <AddFriend style={{ width: "1.5rem", cursor: "pointer" }} />
+            <Headphone style={{ width: "1.5rem", cursor: "pointer" }} />
+          </>
+        )}
+        {isChatList && (
+          <PlusChat style={{ width: "1.5rem", cursor: "pointer" }} />
+        )}
         <Setting style={{ width: "1.5rem", cursor: "pointer" }} />
       </Right>
     </Contianer>

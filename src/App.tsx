@@ -9,6 +9,7 @@ import Theme from "./styles/Theme";
 // 페이지 임포트
 import ChattingPage from "./pages/ChattingPage";
 import ChattingList from "./pages/ChattingList";
+import FriendList from "./pages/FriendList";
 
 function App() {
   // 뷰포트 높이 계산
@@ -26,6 +27,7 @@ function App() {
       <ThemeProvider theme={Theme}>
         <Router>
           <Routes>
+            <Route path="/friendlist" element={<FriendList />} />
             <Route path="/chatlist" element={<ChattingList />} />
             <Route path="/chatroom/:roomId" element={<ChattingPage />} />
           </Routes>

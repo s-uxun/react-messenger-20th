@@ -1,9 +1,11 @@
+export { default as AddFriend } from "./AddFriend";
 export { default as Back } from "./Back";
 export { default as BottomBar } from "./BottomBar";
 export { default as Chat } from "./Chat";
 export { default as Emoji } from "./Emoji";
 export { default as Friend } from "./Friend";
 export { default as HashTag } from "./HashTag";
+export { default as Headphone } from "./Headphone";
 export { default as Menu } from "./Menu";
 export { default as MobileBar } from "./MobileBar";
 export { default as More } from "./More";

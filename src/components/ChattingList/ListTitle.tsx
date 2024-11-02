@@ -12,21 +12,32 @@ export function ListTitle() {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const isFriendList = currentPath.includes("friendlist");
-  const isChatList = currentPath.includes("chatlist");
+  const pageTitles: Record<string, string> = {
+    friendlist: "친구",
+    chatlist: "채팅",
+    openchat: "오픈채팅",
+    shopping: "쇼핑",
+    setting: "더보기",
+  };
+
+  // 위에서 정의한 path와 연결된 문구를 title로 설정
+  const title =
+    Object.entries(pageTitles).find(([key]) =>
+      currentPath.includes(key)
+    )?.[1] || "";
 
   return (
     <Contianer>
-      <Left>{isFriendList ? "친구" : isChatList ? "채팅" : ""}</Left>
+      <Left>{title}</Left>
       <Right>
         <Search style={{ width: "1.5rem", cursor: "pointer" }} />
-        {isFriendList && (
+        {currentPath.includes("friendlist") && (
           <>
             <AddFriend style={{ width: "1.5rem", cursor: "pointer" }} />
             <Headphone style={{ width: "1.5rem", cursor: "pointer" }} />
           </>
         )}
-        {isChatList && (
+        {currentPath.includes("chat") && (
           <PlusChat style={{ width: "1.5rem", cursor: "pointer" }} />
         )}
         <Setting style={{ width: "1.5rem", cursor: "pointer" }} />

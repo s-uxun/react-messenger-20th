@@ -11,6 +11,7 @@ import ChattingPage from "./pages/ChattingPage";
 import ChattingList from "./pages/ChattingList";
 import FriendList from "./pages/FriendList";
 import EditProfile from "./components/FriendList/EditProfile";
+import DevelopingPage from "./pages/DevelopingPage";
 
 function App() {
   // 뷰포트 높이 계산
@@ -32,6 +33,9 @@ function App() {
             <Route path="/edit/:currentUserId" element={<EditProfile />} />
             <Route path="/chatlist" element={<ChattingList />} />
             <Route path="/chatroom/:roomId" element={<ChattingPage />} />
+            <Route path="/openchat" element={<DevelopingPage />} />
+            <Route path="/shopping" element={<DevelopingPage />} />
+            <Route path="/setting" element={<DevelopingPage />} />
           </Routes>
         </Router>
       </ThemeProvider>

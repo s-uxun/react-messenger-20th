@@ -15,7 +15,7 @@ const MenuBar = () => {
   const menuItems = [
     { path: "friendlist", label: "친구", Icon: Friend },
     { path: "chatlist", label: "채팅", Icon: Chat },
-    { path: "openchatlist", label: "오픈채팅", Icon: OpenChat },
+    { path: "openchat", label: "오픈채팅", Icon: OpenChat },
     { path: "shopping", label: "쇼핑", Icon: Store },
     { path: "setting", label: "더보기", Icon: More },
   ];

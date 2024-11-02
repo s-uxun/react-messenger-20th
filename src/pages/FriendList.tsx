@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MobileTop } from "../components/MobileTop";
 import { ListTitle } from "../components/ChattingList/ListTitle";
 import { ChatBottom } from "../components/ChattingRoom/ChatBottom";
+import AllFriends from "../components/FriendList/AllFriends";
 import MenuBar from "../components/ChattingList/MenuBar";
 
 const FriendList = () => {
@@ -9,7 +10,9 @@ const FriendList = () => {
     <Wrapper>
       <MobileTop />
       <ListTitle />
-      <ContentStyle></ContentStyle>
+      <ContentStyle>
+        <AllFriends />
+      </ContentStyle>
       <MenuBar />
       <ChatBottom />
     </Wrapper>

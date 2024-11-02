@@ -116,7 +116,7 @@ const ToggleButton = styled.div`
 `;
 
 const Friends = styled.div<{ isExpanded: Boolean }>`
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   border-top: 1px solid ${({ theme }) => theme.color.gray10};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray10};
   background-color: ${({ isExpanded, theme }) =>

@@ -30,7 +30,6 @@ const Container = styled.div`
   gap: 0.75rem;
   padding: 0.75rem 1.25rem;
   border-top: 1px solid ${({ theme }) => theme.color.gray10};
-  margin-top: 1rem;
 `;
 
 const Content = styled.div`

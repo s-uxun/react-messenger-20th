@@ -1,23 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useUserStore, { User } from "../../stores/UserStore";
 import useChatroomStore from "../../stores/ChatroomStore";
 import UserInfo from "./UserInfo";
 import BirthdayUser from "./BirthdayUser";
+import UpdatedProfile from "./UpdatedProfile";
 import { Up, Down } from "../../assets/icons";
 
 const AllFriends = () => {
   const users = useUserStore((state) => state.users);
   const currentUserId = useUserStore((state) => state.currentUserId);
   const setCurrentUserId = useUserStore((state) => state.setCurrentUserId);
-
+  const updatedUsers = useUserStore((state) => state.updatedUsers);
   const currentUser = users.find((user) => user.id === currentUserId);
   const friends = users.filter((user) => user.id !== currentUserId);
 
   const navigate = useNavigate();
   const { chatrooms, addChatroom } = useChatroomStore();
 
+  // 한 번 클릭해서 currentUser 변경
   const handleUserClick = (user: User) => {
     if (user.id === currentUserId) {
       navigate(`/edit/${currentUserId}`);
@@ -26,6 +28,7 @@ const AllFriends = () => {
     }
   };
 
+  // 두 번 클릭해서 해당 유저와의 채팅방으로 이동 (기존에 해당 유저와 둘이 채팅한 적이 있다면 그 방으로, 없다면 새로운 방 생성 후 이동)
   const handleDoubleClick = (user: User) => {
     let chatroom = chatrooms.find(
       (room) =>
@@ -56,6 +59,7 @@ const AllFriends = () => {
           size="large"
         />
       )}
+      <UpdatedProfile updatedUsers={updatedUsers} />
       <BirthdayUser />
       <Friends isExpanded={isExpanded}>
         <FHeader>

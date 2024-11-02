@@ -31,6 +31,8 @@ type UserStore = {
   users: User[];
   currentUserId: number;
   setCurrentUserId: (userId: number) => void;
+  updatedUsers: User[];
+  addUpdatedUser: (user: User) => void;
   currentUser: User | undefined;
 };
 
@@ -45,6 +47,17 @@ const useUserStore = create<UserStore>((set, get) => ({
     localStorage.setItem("currentUserId", userId.toString());
     const user = get().users.find((user) => user.id === userId);
     set({ currentUserId: userId, currentUser: user });
+  },
+  updatedUsers: [UserData.find((user) => user.id === 11)!],
+  addUpdatedUser: (user: User) => {
+    set((state) => {
+      if (
+        !state.updatedUsers.some((updatedUser) => updatedUser.id === user.id)
+      ) {
+        return { updatedUsers: [...state.updatedUsers, user] };
+      }
+      return state;
+    });
   },
   currentUser: undefined,
 }));

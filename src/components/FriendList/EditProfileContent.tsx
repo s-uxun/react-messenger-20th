@@ -17,7 +17,9 @@ const EditProfileContent: React.FC<EditProfileContentProps> = ({
   const [name, setName] = useState(currentUser.name);
   const [phoneNum, setPhoneNum] = useState(currentUser.phoneNum);
   const [birthday, setBirthday] = useState(currentUser.birthday);
+  const addUpdatedUser = useUserStore((state) => state.addUpdatedUser);
 
+  // 변경된 상태 저장하고 해당 유저를 UpdatedUser에 추가
   const handleSave = () => {
     useUserStore.setState((state) => {
       const updatedUsers = state.users.map((user) =>
@@ -27,6 +29,7 @@ const EditProfileContent: React.FC<EditProfileContentProps> = ({
       );
       return { users: updatedUsers };
     });
+    addUpdatedUser({ ...currentUser, name, phoneNum, birthday });
     setIsEditing(false);
   };
 

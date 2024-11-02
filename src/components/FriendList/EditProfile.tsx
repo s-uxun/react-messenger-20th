@@ -8,7 +8,10 @@ import useUserStore from "../../stores/UserStore";
 import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
-  const { currentUser } = useUserStore();
+  // 그냥 { currentUser }로 불러오면 mockData의 정보만 불러와서 바뀐 상태 정보는 업데이트가 안 됨.
+  const users = useUserStore((state) => state.users);
+  const currentUserId = useUserStore((state) => state.currentUserId);
+  const currentUser = users.find((user) => user.id === currentUserId);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +20,7 @@ const EditProfile = () => {
       <MobileTop />
       <GiftTop>
         <Close
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/friendlist")}
           style={{ width: "1.5rem", cursor: "pointer" }}
         />
         <Right>

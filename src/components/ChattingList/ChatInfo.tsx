@@ -144,7 +144,7 @@ const Container = styled.div<{ isFixed: boolean }>`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.color.gray10};
+    background-color: ${({ theme }) => theme.color.gray5};
   }
 `;
 

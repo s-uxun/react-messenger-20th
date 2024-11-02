@@ -48,6 +48,7 @@ const UserName = styled.p<{ size: "large" | "small" }>`
   ${({ theme, size }) =>
     size === "large" ? theme.font.Headline3 : theme.font.Body_1_med};
   color: ${({ theme }) => theme.color.gray100};
+  cursor: url(https://s-uxun.github.io/CDN/Rainbow.cur), pointer;
 `;
 
 const ProfileImage = styled.img<{ size: "large" | "small" }>`

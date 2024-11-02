@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
 import useUserStore from "../../stores/UserStore";
-import { useCurrentUserId } from "../hooks/useUser";
 import { jelloHorizontal } from "../../styles/Keyframe";
 import { styled, css } from "styled-components";
 import { Profile } from "../../assets/icons";
@@ -34,7 +33,8 @@ interface User {
 
 export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
   const { roomId } = useParams<{ roomId: string }>();
-  const { currentUserId, setCurrentUserId } = useCurrentUserId();
+  const currentUserId = useUserStore((state) => state.currentUserId);
+  const setCurrentUserId = useUserStore((state) => state.setCurrentUserId);
   const users = useUserStore((state) => state.users);
   const allChats = useChatStore((state) =>
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
@@ -116,9 +116,7 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
                     )}
                     <FlexColumn>
                       <UserName
-                        onClick={() =>
-                          setCurrentUserId(Number(roomId), sender?.id || 0)
-                        }
+                        onClick={() => setCurrentUserId(sender?.id || 0)}
                       >
                         {sender?.name}
                       </UserName>

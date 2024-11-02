@@ -8,26 +8,22 @@ import UpdatedProfile from "./UpdatedProfile";
 import BirthdayUser from "./BirthdayUser";
 import { Up, Down } from "../../assets/icons";
 
-interface AllFriendsProps {
-  currentUser: User | null;
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-
-const AllFriends: React.FC<AllFriendsProps> = ({
-  currentUser,
-  setCurrentUser,
-}) => {
-  const navigate = useNavigate();
+const AllFriends = () => {
   const users = useUserStore((state) => state.users);
-  const friends = users.filter((user) => user.id !== currentUser?.id);
+  const currentUserId = useUserStore((state) => state.currentUserId);
+  const setCurrentUserId = useUserStore((state) => state.setCurrentUserId);
 
+  const currentUser = users.find((user) => user.id === currentUserId);
+  const friends = users.filter((user) => user.id !== currentUserId);
+
+  const navigate = useNavigate();
   const { chatrooms, addChatroom } = useChatroomStore();
 
   const handleUserClick = (user: User) => {
-    if (user.id === currentUser?.id) {
-      navigate(`/editprofile/${currentUser.id}`);
+    if (user.id === currentUserId) {
+      navigate(`/editprofile/${currentUserId}`);
     } else {
-      setCurrentUser(user);
+      setCurrentUserId(user.id);
     }
   };
 
@@ -40,7 +36,7 @@ const AllFriends: React.FC<AllFriendsProps> = ({
     );
 
     if (!chatroom) {
-      addChatroom("", [currentUser!.id, user.id], currentUser!.id);
+      addChatroom("", [currentUserId, user.id]);
       chatroom = chatrooms[chatrooms.length];
     }
 
@@ -63,7 +59,7 @@ const AllFriends: React.FC<AllFriendsProps> = ({
       )}
       <UpdatedProfile />
       <BirthdayUser />
-      <Friends isExpended={isExpanded}>
+      <Friends isExpanded={isExpanded}>
         <FHeader>
           <FTitle>친구</FTitle>
           <FCount>{friends.length}</FCount>
@@ -121,12 +117,12 @@ const ToggleButton = styled.div`
   }
 `;
 
-const Friends = styled.div<{ isExpended: Boolean }>`
+const Friends = styled.div<{ isExpanded: Boolean }>`
   margin-top: 0.75rem;
   border-top: 1px solid ${({ theme }) => theme.color.gray10};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray10};
-  background-color: ${({ isExpended, theme }) =>
-    isExpended ? theme.color.gray5 : "none"};
+  background-color: ${({ isExpanded, theme }) =>
+    isExpanded ? theme.color.gray5 : "none"};
 `;
 
 const FList = styled.div<{ isExpanded: boolean }>`

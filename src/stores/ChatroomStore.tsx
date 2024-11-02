@@ -6,7 +6,6 @@ type Chatroom = {
   id: number;
   title: string;
   userIds: number[];
-  currentUserId: number;
   isFixed: boolean;
 };
 
@@ -14,11 +13,7 @@ type ChatroomStore = {
   chatrooms: Chatroom[];
   setCurrentUserId: (roomId: number, userId: number) => void;
   toggleIsFixed: (roomId: number) => void;
-  addChatroom: (
-    title: string,
-    userIds: number[],
-    currentUserId: number
-  ) => void;
+  addChatroom: (title: string, userIds: number[]) => void;
 };
 
 const useChatroomStore = create<ChatroomStore>((set) => ({
@@ -38,14 +33,13 @@ const useChatroomStore = create<ChatroomStore>((set) => ({
       ),
     })),
 
-  addChatroom: (title: string, userIds: number[], currentUserId: number) =>
+  addChatroom: (title: string, userIds: number[]) =>
     set((state) => {
       const newRoomId = state.chatrooms.length + 1;
       const newChatroom: Chatroom = {
         id: newRoomId,
         title,
         userIds,
-        currentUserId,
         isFixed: false,
       };
 

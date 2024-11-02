@@ -1,13 +1,19 @@
 import styled from "styled-components";
 import ChatInfo from "./ChatInfo";
 import useChatroomStore from "../../stores/ChatroomStore";
+import useUserStore from "../../stores/UserStore";
 
 const ChatItem: React.FC = () => {
   const { chatrooms } = useChatroomStore();
+  const currentUserId = useUserStore((state) => state.currentUserId);
 
-  //고정된 채팅방이랑 안 고정된 채팅방 나누기
-  const fixedChatrooms = chatrooms.filter((room) => room.isFixed);
-  const nonFixedChatrooms = chatrooms.filter((room) => !room.isFixed);
+  //고정된 채팅방이랑 안 고정된 채팅방 나누기 (+ currentUser가 들어있는 채팅방이어야 함)
+  const fixedChatrooms = chatrooms.filter(
+    (room) => room.isFixed && room.userIds.includes(currentUserId)
+  );
+  const nonFixedChatrooms = chatrooms.filter(
+    (room) => !room.isFixed && room.userIds.includes(currentUserId)
+  );
 
   return (
     <Container>

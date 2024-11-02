@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 import { useParams } from "react-router-dom";
 import useChatStore from "../../stores/ChatStore";
+import useUserStore from "../../stores/UserStore";
 import { newDate, getCurrentTime } from "../hooks/useTime";
-import { useCurrentUserId } from "../hooks/useUser";
 import { useMobile } from "../hooks/useMobile";
 import styled from "styled-components";
 import { Plus, Emoji, HashTag, Send } from "../../assets/icons";
 
 export function ChatInput({ onNewChat }: { onNewChat: (id: number) => void }) {
-  const { currentUserId } = useCurrentUserId();
+  const currentUserId = useUserStore((state) => state.currentUserId);
   const isMobile = useMobile();
   const addChat = useChatStore((state) => state.addChat);
   const { roomId } = useParams<{ roomId: string }>();

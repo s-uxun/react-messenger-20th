@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import useUserStore, { User } from "../stores/UserStore";
 import styled from "styled-components";
 import { MobileTop } from "../components/MobileTop";
 import { ListTitle } from "../components/ChattingList/ListTitle";
@@ -8,32 +6,12 @@ import AllFriends from "../components/FriendList/AllFriends";
 import MenuBar from "../components/ChattingList/MenuBar";
 
 const FriendList = () => {
-  const users = useUserStore((state) => state.users);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-  // 로컬에서 currentUser 불러옴
-  useEffect(() => {
-    const storedUser = localStorage.getItem("currentUser");
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
-    } else {
-      setCurrentUser(users.find((user) => user.id === 1) || null);
-    }
-  }, [users]);
-
-  // currentUser 로컬에 저장
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    }
-  }, [currentUser]);
-
   return (
     <Wrapper>
       <MobileTop />
       <ListTitle />
       <ContentStyle>
-        <AllFriends currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        <AllFriends />
       </ContentStyle>
       <MenuBar />
       <ChatBottom />

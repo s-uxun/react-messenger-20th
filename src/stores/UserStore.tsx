@@ -15,24 +15,43 @@ export type User = {
 const profileColors = ["#FCC", "#D193F6", "#FF7F7F"];
 const assignDefaults = (users: User[]): User[] => {
   return users.map((user, index) => {
-    if (user.img != "") {
+    if (user.img !== "") {
       return { ...user, color: "" };
     } else {
       return {
         ...user,
-        img: "", // 빈 문자열로 설정
+        img: "",
         color: profileColors[index % profileColors.length],
       };
     }
   });
 };
 
-type userStore = {
+type UserStore = {
   users: User[];
+  currentUserId: number;
+  setCurrentUserId: (userId: number) => void;
+  currentUser: User | undefined;
 };
 
-const useUserStore = create<userStore>(() => ({
+// currentUser 로직 여기로 옮김
+const useUserStore = create<UserStore>((set, get) => ({
   users: assignDefaults(UserData),
+  currentUserId: (() => {
+    const storedUserId = localStorage.getItem("currentUserId");
+    return storedUserId ? Number(storedUserId) : 1; // 저장된 거 없으면 내 프로필을 기본으로 설정
+  })(),
+  setCurrentUserId: (userId: number) => {
+    localStorage.setItem("currentUserId", userId.toString());
+    const user = get().users.find((user) => user.id === userId);
+    set({ currentUserId: userId, currentUser: user });
+  },
+  currentUser: undefined,
 }));
+
+useUserStore.setState((state) => {
+  const user = state.users.find((user) => user.id === state.currentUserId);
+  return { currentUser: user };
+});
 
 export default useUserStore;

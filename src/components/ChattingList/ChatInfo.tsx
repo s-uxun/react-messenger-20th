@@ -18,13 +18,12 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chatroomId }) => {
   const { chatrooms, toggleIsFixed } = useChatroomStore();
   const chatroom = chatrooms.find((room) => room.id === chatroomId);
   const { users } = useUserStore();
+  const currentUserId = useUserStore((state) => state.currentUserId);
   const { chatByRooms } = useChatStore();
   const { getTitle } = useTitle();
   const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
 
   if (!chatroom) return null;
-
-  const currentUserId = chatroom.currentUserId;
 
   //각 채팅방의 유저 정보 구하기
   const participants = chatroom.userIds
@@ -115,9 +114,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chatroomId }) => {
       </LeftSection>
       <MiddleSection>
         <TopRow>
-          <Title>
-            {getTitle(chatroom.title, chatroom.userIds, currentUserId)}
-          </Title>
+          <Title>{getTitle(chatroom.title, chatroom.userIds)}</Title>
           {isGroupChat && (
             <ParticipantCount>{participants.length + 1}</ParticipantCount>
           )}

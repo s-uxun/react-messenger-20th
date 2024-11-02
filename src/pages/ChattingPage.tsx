@@ -5,7 +5,7 @@ import { ChatTitle } from "../components/ChattingRoom/ChatTitle";
 import { ChatInput } from "../components/ChattingRoom/ChatInput";
 import { ChatContent } from "../components/ChattingRoom/ChatContent";
 import { ChatBottom } from "../components/ChattingRoom/ChatBottom";
-import { useCurrentUserId } from "../components/hooks/useUser";
+import useUserStore from "../stores/UserStore";
 
 const ChattingPage = () => {
   const [newChatIds, setNewChatIds] = useState<number[]>([]);
@@ -13,7 +13,7 @@ const ChattingPage = () => {
     setNewChatIds((prevIds) => [...prevIds, id]);
   };
 
-  const { currentUserId } = useCurrentUserId();
+  const currentUserId = useUserStore((state) => state.currentUserId);
   useEffect(() => {
     setNewChatIds([]);
   }, [currentUserId]);

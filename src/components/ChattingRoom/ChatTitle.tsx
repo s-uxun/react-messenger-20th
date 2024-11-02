@@ -24,11 +24,7 @@ export function ChatTitle() {
       </Left>
       <Center>
         <Title>
-          {getTitle(
-            chatroom?.title || "",
-            chatroom?.userIds || [],
-            chatroom?.currentUserId || 1
-          )}
+          {getTitle(chatroom?.title || "", chatroom?.userIds || [])}
         </Title>
         {chatroom?.userIds && chatroom.userIds.length > 2 && (
           <Num>{chatroom?.userIds.length}</Num>

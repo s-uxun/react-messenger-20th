@@ -20,8 +20,33 @@ const AllFriends: React.FC<AllFriendsProps> = ({
   const navigate = useNavigate();
   const users = useUserStore((state) => state.users);
   const friends = users.filter((user) => user.id !== currentUser?.id);
+
+  const { chatrooms, addChatroom } = useChatroomStore();
+
   const handleUserClick = (user: User) => {
-    setCurrentUser(user);
+    if (user.id === currentUser?.id) {
+      navigate(`/editprofile/${currentUser.id}`);
+    } else {
+      setCurrentUser(user);
+    }
+  };
+
+  const handleDoubleClick = (user: User) => {
+    let chatroom = chatrooms.find(
+      (room) =>
+        room.userIds.includes(currentUser!.id) &&
+        room.userIds.includes(user.id) &&
+        room.userIds.length === 2
+    );
+
+    if (!chatroom) {
+      addChatroom("", [currentUser!.id, user.id], currentUser!.id);
+      chatroom = chatrooms[chatrooms.length];
+    }
+
+    if (chatroom) {
+      navigate(`/chatroom/${chatroom.id}`);
+    }
   };
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,7 +57,7 @@ const AllFriends: React.FC<AllFriendsProps> = ({
       {currentUser && (
         <UserInfo
           user={currentUser}
-          onClick={() => alert("나중에 프로필 편집 창으로 클릭 이벤트 변경")}
+          onClick={() => handleUserClick(currentUser)}
           size="large"
         />
       )}
@@ -52,7 +77,7 @@ const AllFriends: React.FC<AllFriendsProps> = ({
               key={friend.id}
               user={friend}
               onClick={() => handleUserClick(friend)}
-              onDoubleClick={() => alert("나중에 채팅방으로 클릭 이벤트 변경")}
+              onDoubleClick={() => handleDoubleClick(friend)}
             />
           ))}
         </FList>

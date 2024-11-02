@@ -12,7 +12,8 @@ export function useTitle() {
     if (title) return title;
 
     if (userIds.length === 2) {
-      const otherUser = users.find((user) => user.id !== currentUserId);
+      const otherUserId = userIds.find((id) => id !== currentUserId);
+      const otherUser = users.find((user) => user.id === otherUserId);
       return otherUser?.name || "(알 수 없음)";
     }
     return "그룹채팅";

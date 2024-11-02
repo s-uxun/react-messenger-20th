@@ -101,7 +101,7 @@ const Friends = styled.div<{ isExpended: Boolean }>`
   border-top: 1px solid ${({ theme }) => theme.color.gray10};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray10};
   background-color: ${({ isExpended, theme }) =>
-    isExpended ? "none" : theme.color.gray5};
+    isExpended ? theme.color.gray5 : "none"};
 `;
 
 const FList = styled.div<{ isExpanded: boolean }>`

@@ -24,12 +24,14 @@ type chatStore = {
 };
 
 const useChatStore = create<chatStore>((set) => ({
-  chatByRooms: ChatData,
+  chatByRooms: JSON.parse(
+    localStorage.getItem("chatByRooms") || JSON.stringify(ChatData)
+  ),
 
   // 오늘 날짜(newChatDate)에 해당하는 기존 데이터가 있으면 거기에 추가하고, 없으면 새 배열로 감싸서 추가하기
   addChat: (roomId: number, newChat: chat, newChatDate: string) =>
-    set((state) => ({
-      chatByRooms: state.chatByRooms.map((room) => {
+    set((state) => {
+      const updatedChatByRooms = state.chatByRooms.map((room) => {
         if (room.roomId !== roomId) return room;
 
         const existingDate = room.allChats.find(
@@ -38,7 +40,6 @@ const useChatStore = create<chatStore>((set) => ({
 
         if (existingDate) {
           const updatedChats = [...existingDate.chats, newChat];
-
           return {
             ...room,
             allChats: room.allChats.map((chatDate) =>
@@ -53,8 +54,13 @@ const useChatStore = create<chatStore>((set) => ({
           ...room,
           allChats: [...room.allChats, { date: newChatDate, chats: [newChat] }],
         };
-      }),
-    })),
+      });
+
+      // 로컬 스토리지에 채팅 저장
+      localStorage.setItem("chatByRooms", JSON.stringify(updatedChatByRooms));
+
+      return { chatByRooms: updatedChatByRooms };
+    }),
 }));
 
 export default useChatStore;

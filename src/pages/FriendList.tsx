@@ -24,10 +24,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
 `;
 
 const ContentStyle = styled.div`
-  ${({ theme }) => theme.scroll.none};
-  flex-grow: 1;
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
+  ${({ theme }) => theme.scroll.none};
 `;

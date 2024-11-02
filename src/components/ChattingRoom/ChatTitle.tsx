@@ -18,7 +18,7 @@ export function ChatTitle() {
       <Left>
         <Back
           style={{ width: "1.5rem", cursor: "pointer" }}
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/chatlist")}
         />
         <AllNum></AllNum>
       </Left>

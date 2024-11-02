@@ -27,7 +27,8 @@ const Wrapper = styled.div`
 `;
 
 const ContentStyle = styled.div`
-  ${({ theme }) => theme.scroll.none};
-  flex-grow: 1;
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
+  ${({ theme }) => theme.scroll.none};
 `;

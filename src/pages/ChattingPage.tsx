@@ -40,7 +40,9 @@ const Wrapper = styled.div`
 `;
 
 const ChatContentStyle = styled.div`
-  flex-grow: 1;
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
+  ${({ theme }) => theme.scroll.none};
   background-color: ${({ theme }) => theme.color.gray10};
 `;

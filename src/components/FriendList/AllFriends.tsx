@@ -44,7 +44,7 @@ const AllFriends = () => {
     }
   };
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
   return (
@@ -110,13 +110,12 @@ const ToggleButton = styled.div`
   cursor: pointer;
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 `;
 
 const Friends = styled.div<{ isExpanded: Boolean }>`
-  margin-top: 0.5rem;
   border-top: 1px solid ${({ theme }) => theme.color.gray10};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray10};
   background-color: ${({ isExpanded, theme }) =>

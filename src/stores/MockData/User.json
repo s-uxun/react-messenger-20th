@@ -1,34 +1,242 @@
 [
   {
     "id": 1,
-    "name": "유선",
+    "name": "송유선",
     "img": "ys.jpg",
-    "instaId": "s-uxun",
+    "instaId": "s_uxun",
     "phoneNum": "010-7178-5834",
     "birthday": "2001-05-11"
   },
   {
     "id": 2,
-    "name": "하경",
-    "img": "",
+    "name": "디자인천재",
+    "img": "hk.jpg",
     "instaId": "phk__15",
     "phoneNum": "010-4154-4491",
     "birthday": "2004-01-01"
   },
   {
     "id": 3,
-    "name": "세오스",
-    "img": "",
-    "instaId": "ceos.sinchon",
-    "phoneNum": "010-1111-1111",
-    "birthday": "2001-09-27"
+    "name": "지원s",
+    "img": "jw.jpg",
+    "instaId": "jiwwonn__",
+    "phoneNum": "010-4154-4491",
+    "birthday": "2003-08-05"
   },
   {
     "id": 4,
-    "name": "디자인짱",
+    "name": "사랑하는 엄마✨",
+    "img": "mom.jpg",
+    "instaId": "mom",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 5,
+    "name": "야간 비행🌌",
+    "img": "dad.jpg",
+    "instaId": "dad",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 6,
+    "name": "bro",
     "img": "",
-    "instaId": "design",
-    "phoneNum": "010-2222-2222",
-    "birthday": "2004-09-30"
+    "instaId": "",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 7,
+    "name": "하얀이🤍",
+    "img": "hayan.jpg",
+    "instaId": "",
+    "phoneNum": "010-1111-1111",
+    "birthday": "2022-01-30"
+  },
+  {
+    "id": 8,
+    "name": "파트장 님",
+    "img": "dh.png",
+    "instaId": "",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 9,
+    "name": "호랑이조교",
+    "img": "sj.png",
+    "instaId": "",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 10,
+    "name": "🐻",
+    "img": "bear.png",
+    "instaId": "doosanbears.1982",
+    "phoneNum": "02-2240-1777",
+    "birthday": "1982-01-15"
+  },
+  {
+    "id": 11,
+    "name": "CEOS",
+    "img": "ceos.png",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "2015-03-01"
+  },
+  {
+    "id": 12,
+    "name": "천재디자이너",
+    "img": "sw.jpg",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "2003-11-03"
+  },
+  {
+    "id": 13,
+    "name": "서다원",
+    "img": "dw.png",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 14,
+    "name": "황서아",
+    "img": "sa.jpg",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 15,
+    "name": "임가현",
+    "img": "gh.jpg",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 16,
+    "name": "김현승",
+    "img": "hs.jpg",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 17,
+    "name": "강다혜",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 18,
+    "name": "권혜인",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 19,
+    "name": "김수현",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 20,
+    "name": "박지수",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 21,
+    "name": "윤영준",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 22,
+    "name": "이가빈",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 23,
+    "name": "이지인",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 24,
+    "name": "이희원",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 25,
+    "name": "류원",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 26,
+    "name": "지민재",
+    "img": "",
+    "instaId": "ceos.sinchon",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 27,
+    "name": "Wisdom🧡",
+    "img": "",
+    "instaId": "",
+    "phoneNum": "010-1111-1111",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 28,
+    "name": "안성재",
+    "img": "asj.png",
+    "instaId": "sungmosu",
+    "phoneNum": "02-793-5995",
+    "birthday": "1000-10-10"
+  },
+  {
+    "id": 29,
+    "name": "백종원",
+    "img": "bjw.png",
+    "instaId": "paikscuisine_official",
+    "phoneNum": "02-3447-0410",
+    "birthday": "1966-09-04"
+  },
+  {
+    "id": 30,
+    "name": "최강록",
+    "img": "cgl.png",
+    "instaId": "roi_choi",
+    "phoneNum": "070-4212-5212",
+    "birthday": "1000-10-10"
   }
 ]

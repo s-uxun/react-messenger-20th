@@ -21,7 +21,7 @@ const AllFriends = () => {
 
   const handleUserClick = (user: User) => {
     if (user.id === currentUserId) {
-      navigate(`/editprofile/${currentUserId}`);
+      navigate(`/edit/${currentUserId}`);
     } else {
       setCurrentUserId(user.id);
     }

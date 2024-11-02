@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { Profile } from "../../assets/icons";
 
 interface ProfileGroupProps {
-  participants: { id: number; img: string | ReactNode }[];
+  participants: { id: number; img: string; color: string }[];
   currentUserId: number;
 }
 
@@ -17,7 +18,7 @@ const ProfileGroup: React.FC<ProfileGroupProps> = ({
   return (
     <Container numProfiles={displayedParticipants.length}>
       {displayedParticipants.map((user) =>
-        typeof user.img === "string" && user.img !== "" ? (
+        user.img ? (
           <ProfileImage
             src={require(`../../assets/images/${user.img}`)}
             size={displayedParticipants.length === 1 ? "large" : "small"} //2명부터는 프로필 사이즈 작아짐
@@ -26,7 +27,7 @@ const ProfileGroup: React.FC<ProfileGroupProps> = ({
           <StyledProfile
             size={displayedParticipants.length === 1 ? "large" : "small"}
           >
-            {user.img}
+            <Profile color={user.color} />
           </StyledProfile>
         )
       )}

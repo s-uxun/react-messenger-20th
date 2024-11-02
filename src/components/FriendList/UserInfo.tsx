@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { User } from "../../stores/UserStore";
+import { Profile } from "../../assets/icons";
 
 interface UserInfoProps {
   user: User;
@@ -16,13 +17,15 @@ const UserInfo: React.FC<UserInfoProps> = ({
 }) => {
   return (
     <Container onDoubleClick={onDoubleClick}>
-      {typeof user.img === "string" && user.img !== "" ? (
+      {user.img ? (
         <ProfileImage
           src={require(`../../assets/images/${user.img}`)}
           size={size}
         />
       ) : (
-        <StyledProfile size={size}>{user.img}</StyledProfile>
+        <StyledProfile size={size}>
+          <Profile color={user.color} />
+        </StyledProfile>
       )}
       <UserName size={size} onClick={onClick}>
         {user.name}

@@ -9,18 +9,17 @@ import MenuBar from "../components/ChattingList/MenuBar";
 
 const FriendList = () => {
   const users = useUserStore((state) => state.users);
-  const [currentUser, setCurrentUser] = useState<User | null>(
-    users.find((user) => user.id === 1) || null
-  );
-  // 일단 id값이 1인 내 데이터를 기본 currentUser로 설정
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   // 로컬에서 currentUser 불러옴
   useEffect(() => {
     const storedUser = localStorage.getItem("currentUser");
     if (storedUser) {
       setCurrentUser(JSON.parse(storedUser));
+    } else {
+      setCurrentUser(users.find((user) => user.id === 1) || null);
     }
-  }, []);
+  }, [users]);
 
   // currentUser 로컬에 저장
   useEffect(() => {

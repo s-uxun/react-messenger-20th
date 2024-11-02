@@ -5,7 +5,7 @@ import useUserStore from "../../stores/UserStore";
 import { useCurrentUserId } from "../hooks/useUser";
 import { jelloHorizontal } from "../../styles/Keyframe";
 import { styled, css } from "styled-components";
-import { ReactNode } from "react";
+import { Profile } from "../../assets/icons";
 
 interface Chat {
   id: number;
@@ -27,14 +27,15 @@ interface ChatDate {
 
 interface User {
   id: number;
-  img: string | ReactNode;
+  img: string;
   name: string;
+  color: string | undefined;
 }
 
 export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
   const { roomId } = useParams<{ roomId: string }>();
   const { currentUserId, setCurrentUserId } = useCurrentUserId();
-  const users: User[] = useUserStore((state) => state.users);
+  const users = useUserStore((state) => state.users);
   const allChats = useChatStore((state) =>
     state.chatByRooms.find((room) => room.roomId === Number(roomId))
   )?.allChats;
@@ -103,13 +104,15 @@ export function ChatContent({ newChatIds }: { newChatIds: number[] }) {
                   </MyChat>
                 ) : (
                   <OtherChat>
-                    {typeof sender?.img === "string" && sender?.img !== "" ? (
+                    {sender?.img ? (
                       <UserImg
                         src={require(`../../assets/images/${sender?.img}`)}
                         alt={sender?.name}
                       />
                     ) : (
-                      <StyledProfile>{sender?.img}</StyledProfile>
+                      <StyledProfile>
+                        <Profile color={sender?.color} />
+                      </StyledProfile>
                     )}
                     <FlexColumn>
                       <UserName

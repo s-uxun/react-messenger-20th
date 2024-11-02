@@ -31,12 +31,15 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chatroomId }) => {
     .filter((id) => id !== currentUserId)
     .map((id) => {
       const user = users.find((user) => user.id === id);
-      return user ? { id: user.id, img: user.img, name: user.name } : null;
+      return user
+        ? { id: user.id, img: user.img, name: user.name, color: user.color }
+        : null;
     })
     .filter(Boolean) as {
     id: number;
-    img: string | React.ReactNode;
+    img: string;
     name: string;
+    color: string;
   }[];
 
   const isGroupChat = participants.length > 1;

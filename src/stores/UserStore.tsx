@@ -1,12 +1,10 @@
 import { create } from "zustand";
 import UserData from "./MockData/User.json";
-import { Profile } from "../assets/icons";
-import { ReactNode } from "react";
 
 export type User = {
   id: number;
   name: string;
-  img: string | ReactNode;
+  img: string;
   instaId: string;
   phoneNum: string;
   birthday: string;
@@ -22,7 +20,8 @@ const assignDefaults = (users: User[]): User[] => {
     } else {
       return {
         ...user,
-        img: <Profile color={profileColors[index % profileColors.length]} />,
+        img: "", // 빈 문자열로 설정
+        color: profileColors[index % profileColors.length],
       };
     }
   });

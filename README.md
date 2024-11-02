@@ -2,7 +2,7 @@
 
 <br>
 
-## [🪄 결과물](https://react-messenger-20th-s-uxuns-projects.vercel.app/chatroom/1)
+## [🪄 결과물](https://react-messenger-20th-s-uxuns-projects.vercel.app/friendlist)
 
 ### 🩵 구현 기능
 
@@ -20,7 +20,7 @@
 
 -친구 목록에서 내 프로필의 이름을 클릭하면 프로필 편집 페이지 이동, 프로필 편집 버튼을 통해 이름, 전화번호, 생일 수정 가능. SNS 페이지 접근 가능.
 
--채팅 목록에서 현재 currentUser가 참여하고 있는 채팅방들만 렌더링. 각 채팅방에서 앞에 단톡방 인원 수 별 프로필 사진 레이아웃 다르게 함
+-채팅 목록에서 현재 currentUser가 참여하고 있는 채팅방들만 렌더링. 각 채팅방에서 앞에 단톡방 인원 수 별 프로필 사진 레이아웃 다르게 함 -채팅 목록을 한 번 클릭하면 해당 채팅방으로 들어가지고, 두 번 더블클릭하면 고정상태가 토글됨
 
 ### 🩵 느낀 점
 

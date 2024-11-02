@@ -4,17 +4,29 @@ import { User } from "../../stores/UserStore";
 interface UserInfoProps {
   user: User;
   onClick: () => void;
+  onDoubleClick?: () => void;
+  size?: "large" | "small";
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ user, onClick }) => {
+const UserInfo: React.FC<UserInfoProps> = ({
+  user,
+  onClick,
+  onDoubleClick,
+  size = "small",
+}) => {
   return (
-    <Container onClick={onClick}>
+    <Container onDoubleClick={onDoubleClick}>
       {typeof user.img === "string" && user.img !== "" ? (
-        <ProfileImage src={require(`../../assets/images/${user.img}`)} />
+        <ProfileImage
+          src={require(`../../assets/images/${user.img}`)}
+          size={size}
+        />
       ) : (
-        <StyledProfile>{user.img}</StyledProfile>
+        <StyledProfile size={size}>{user.img}</StyledProfile>
       )}
-      <UserName>{user.name}</UserName>
+      <UserName size={size} onClick={onClick}>
+        {user.name}
+      </UserName>
     </Container>
   );
 };
@@ -29,19 +41,20 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-const UserName = styled.p`
-  ${({ theme }) => theme.font.Body_1_med};
+const UserName = styled.p<{ size: "large" | "small" }>`
+  ${({ theme, size }) =>
+    size === "large" ? theme.font.Headline3 : theme.font.Body_1_med};
   color: ${({ theme }) => theme.color.gray100};
 `;
 
-const ProfileImage = styled.img`
-  height: 2.75rem;
-  width: 2.75rem;
+const ProfileImage = styled.img<{ size: "large" | "small" }>`
+  height: ${({ size }) => (size === "large" ? "3.75rem" : "2.75rem")};
+  width: ${({ size }) => (size === "large" ? "3.75rem" : "2.75rem")};
   border-radius: 50%;
 `;
 
-const StyledProfile = styled.div`
-  height: 2.75rem;
-  width: 2.75rem;
+const StyledProfile = styled.div<{ size: "large" | "small" }>`
+  height: ${({ size }) => (size === "large" ? "3.75rem" : "2.75rem")};
+  width: ${({ size }) => (size === "large" ? "3.75rem" : "2.75rem")};
   border-radius: 50%;
 `;

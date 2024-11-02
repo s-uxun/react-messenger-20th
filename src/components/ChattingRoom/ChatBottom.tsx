@@ -6,5 +6,5 @@ export function ChatBottom() {
   if (isMobile) {
     return null;
   }
-  return <BottomBar style={{ backgroundColor: "white" }} />;
+  return <BottomBar />;
 }

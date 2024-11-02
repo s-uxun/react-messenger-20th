@@ -27,7 +27,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1.0625rem 1.5rem 0.5625rem 1.75rem;
-  background-color: white;
 `;
 
 const TimeText = styled.p`

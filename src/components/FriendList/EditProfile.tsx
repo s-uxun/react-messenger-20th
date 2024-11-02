@@ -1,15 +1,25 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { MobileTop } from "../MobileTop";
 import { ChatBottom } from "../ChattingRoom/ChatBottom";
 import { Close, Gift, Barcode, Setting } from "../../assets/icons";
 import EditProfileContent from "./EditProfileContent";
+import useUserStore from "../../stores/UserStore";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
+  const { currentUser } = useUserStore();
+  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <MobileTop />
       <GiftTop>
-        <Close style={{ width: "1.5rem", cursor: "pointer" }} />
+        <Close
+          onClick={() => navigate(-1)}
+          style={{ width: "1.5rem", cursor: "pointer" }}
+        />
         <Right>
           <Gift style={{ width: "1.5rem", cursor: "pointer" }} />
           <Barcode style={{ width: "1.5rem", cursor: "pointer" }} />
@@ -17,7 +27,13 @@ const EditProfile = () => {
         </Right>
       </GiftTop>
       <ContentStyle></ContentStyle>
-      <EditProfileContent />
+      {currentUser && (
+        <EditProfileContent
+          currentUser={currentUser}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+        />
+      )}
       <ChatBottom />
     </Wrapper>
   );

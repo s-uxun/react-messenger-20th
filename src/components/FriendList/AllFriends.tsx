@@ -4,7 +4,6 @@ import styled from "styled-components";
 import useUserStore, { User } from "../../stores/UserStore";
 import useChatroomStore from "../../stores/ChatroomStore";
 import UserInfo from "./UserInfo";
-import UpdatedProfile from "./UpdatedProfile";
 import BirthdayUser from "./BirthdayUser";
 import { Up, Down } from "../../assets/icons";
 
@@ -57,7 +56,6 @@ const AllFriends = () => {
           size="large"
         />
       )}
-      <UpdatedProfile />
       <BirthdayUser />
       <Friends isExpanded={isExpanded}>
         <FHeader>

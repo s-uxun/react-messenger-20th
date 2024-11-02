@@ -1,32 +1,47 @@
 import styled from "styled-components";
 import { useState } from "react";
-import useUserStore from "../../stores/UserStore";
+import useUserStore, { User } from "../../stores/UserStore";
 import { Profile, ChatLine, Insta, Right } from "../../assets/icons";
 
-const EditProfileContent = () => {
-  const { currentUser } = useUserStore();
-  const [isEditing, setIsEditing] = useState(false);
-  const [editFields, setEditFields] = useState({
-    name: currentUser?.name || "",
-    phoneNum: currentUser?.phoneNum || "",
-    birthday: currentUser?.birthday || "",
-    instaId: currentUser?.instaId || "",
-  });
+interface EditProfileContentProps {
+  currentUser: User;
+  isEditing: boolean;
+  setIsEditing: (editing: boolean) => void;
+}
 
-  if (!currentUser) return null;
+const EditProfileContent: React.FC<EditProfileContentProps> = ({
+  currentUser,
+  isEditing,
+  setIsEditing,
+}) => {
+  const [name, setName] = useState(currentUser.name);
+  const [phoneNum, setPhoneNum] = useState(currentUser.phoneNum);
+  const [birthday, setBirthday] = useState(currentUser.birthday);
 
-  // 프로필 정보 바꾸고 저장하기
-  const handleEditToggle = () => setIsEditing(!isEditing);
-  const handleChange = (field: string, value: string) => {
-    setEditFields({ ...editFields, [field]: value });
-  };
   const handleSave = () => {
-    useUserStore.setState((state) => ({
-      users: state.users.map((user) =>
-        user.id === currentUser.id ? { ...user, ...editFields } : user
-      ),
-    }));
+    useUserStore.setState((state) => {
+      const updatedUsers = state.users.map((user) =>
+        user.id === currentUser.id
+          ? { ...user, name, phoneNum, birthday }
+          : user
+      );
+      return { users: updatedUsers };
+    });
     setIsEditing(false);
+  };
+
+  const handleEdit = () => {
+    if (isEditing) {
+      handleSave(); // 편집 완료 -> 저장
+    } else {
+      setIsEditing(true);
+    }
+  };
+
+  const handleInstaClick = () => {
+    if (currentUser.instaId) {
+      window.open(`https://instagram.com/${currentUser.instaId}`, "_blank");
+    }
   };
 
   return (
@@ -43,17 +58,20 @@ const EditProfileContent = () => {
         )}
       </ProfileWrapper>
       <InputName
-        value={editFields.name}
-        onChange={(e) => handleChange("name", e.target.value)}
-      />
-      <InputPhoneNum
-        value={editFields.phoneNum}
-        onChange={(e) => handleChange("phoneNum", e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        disabled={!isEditing}
       />
       <InputBirthDay
         type="date"
-        value={editFields.birthday}
-        onChange={(e) => handleChange("birthday", e.target.value)}
+        value={birthday}
+        onChange={(e) => setBirthday(e.target.value)}
+        disabled={!isEditing}
+      />
+      <InputPhoneNum
+        value={phoneNum}
+        onChange={(e) => setPhoneNum(e.target.value)}
+        disabled={!isEditing}
       />
       <MakeChat>
         <ChatLine style={{ width: "1.5rem" }} />
@@ -62,18 +80,14 @@ const EditProfileContent = () => {
           style={{ width: "1.5rem", position: "absolute", right: "1rem" }}
         />
       </MakeChat>
-      <LinkInsta>
+      <LinkInsta onClick={handleInstaClick}>
         <Insta style={{ width: "1.5rem" }} />
         <p>SNS</p>
         <Right
           style={{ width: "1.5rem", position: "absolute", right: "1rem" }}
         />
       </LinkInsta>
-      {/* <InputInsta
-        value={editFields.instaId}
-        onChange={(e) => handleChange("instaId", e.target.value)}
-      /> */}
-      <Button onClick={isEditing ? handleSave : handleEditToggle}>
+      <Button onClick={handleEdit}>
         {isEditing ? "편집 완료" : "프로필 편집"}
       </Button>
     </Container>
@@ -82,14 +96,17 @@ const EditProfileContent = () => {
 
 export default EditProfileContent;
 
-// Styled Components
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 1.25rem 15rem;
-  background-color: ${({ theme }) => theme.color.gray10};
+  padding: 1rem 1.25rem 13rem;
+  background: linear-gradient(
+    to bottom,
+    ${({ theme }) => theme.color.gray10},
+    #ffffff
+  );
+  border-top: 1px solid ${({ theme }) => theme.color.gray30};
   border-radius: 1.25rem 1.25rem 0 0;
   position: relative;
 `;
@@ -97,6 +114,8 @@ const Container = styled.div`
 const ProfileWrapper = styled.div`
   position: absolute;
   top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const ProfileImage = styled.img`
@@ -117,7 +136,7 @@ const InputName = styled.input`
   border: none;
   background: none;
   text-align: center;
-  margin-top: 4rem;
+  margin: 3.5rem 0 0.25rem;
   height: 2rem;
 `;
 
@@ -127,22 +146,16 @@ const InputPhoneNum = styled.input`
   border: none;
   background: none;
   text-align: center;
+  margin-bottom: 1.5rem;
 `;
 
 const InputBirthDay = styled.input`
   ${({ theme }) => theme.font.Body_2_med};
-  border: 1px solid ${({ theme }) => theme.color.gray80};
+  color: ${({ theme }) => theme.color.gray80};
   border: none;
   background: none;
   text-align: center;
-`;
-
-const InputInsta = styled.input`
-  ${({ theme }) => theme.font.Body_2_reg};
-  padding: 0.25rem;
-  border: 1px solid ${({ theme }) => theme.color.gray30};
-  border-radius: 0.5rem;
-  width: 60%;
+  margin-left: 1rem;
 `;
 
 const MakeChat = styled.div`
@@ -155,6 +168,7 @@ const MakeChat = styled.div`
   background: rgba(250, 250, 251, 0.5);
   margin-bottom: 0.75rem;
   position: relative;
+  gap: 0.5rem;
   p {
     ${({ theme }) => theme.font.Body_2_med};
     color: ${({ theme }) => theme.color.gray60};
@@ -170,6 +184,8 @@ const LinkInsta = styled.div`
   width: 100%;
   background: rgba(250, 250, 251, 0.5);
   position: relative;
+  gap: 0.5rem;
+  cursor: pointer;
   p {
     ${({ theme }) => theme.font.Body_2_med};
     color: ${({ theme }) => theme.color.gray60};

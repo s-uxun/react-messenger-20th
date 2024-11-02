@@ -36,10 +36,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(var(--vh, 1vh) * 100);
-  background-color: ${({ theme }) => theme.color.gray10};
+  background-color: ${({ theme }) => theme.color.white};
 `;
 
 const ChatContentStyle = styled.div`
   flex-grow: 1;
   overflow-y: auto;
+  background-color: ${({ theme }) => theme.color.gray10};
 `;

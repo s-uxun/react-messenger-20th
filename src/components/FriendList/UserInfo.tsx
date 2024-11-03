@@ -16,7 +16,7 @@ const UserInfo: React.FC<UserInfoProps> = ({
   size = "small",
 }) => {
   return (
-    <Container onDoubleClick={onDoubleClick}>
+    <Container>
       {user.img ? (
         <ProfileImage
           src={require(`../../assets/images/${user.img}`)}

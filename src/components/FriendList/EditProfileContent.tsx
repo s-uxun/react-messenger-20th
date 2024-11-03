@@ -193,6 +193,9 @@ const LinkInsta = styled.div`
     ${({ theme }) => theme.font.Body_2_med};
     color: ${({ theme }) => theme.color.gray60};
   }
+  &:hover {
+    background-color: ${({ theme }) => theme.color.palepink2};
+  }
 `;
 
 const Button = styled.button`

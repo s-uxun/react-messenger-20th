@@ -15,16 +15,26 @@ const AllFriends = () => {
   const updatedUsers = useUserStore((state) => state.updatedUsers);
   const currentUser = users.find((user) => user.id === currentUserId);
   const friends = users.filter((user) => user.id !== currentUserId);
-
+  const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
   const { chatrooms, addChatroom } = useChatroomStore();
 
   // 한 번 클릭해서 currentUser 변경
   const handleUserClick = (user: User) => {
-    if (user.id === currentUserId) {
-      navigate(`/edit/${currentUserId}`);
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+      setClickTimeout(null);
+      handleDoubleClick(user);
     } else {
-      setCurrentUserId(user.id);
+      const timeout = setTimeout(() => {
+        if (user.id === currentUserId) {
+          navigate(`/edit/${currentUserId}`);
+        } else {
+          setCurrentUserId(user.id);
+        }
+        setClickTimeout(null);
+      }, 300);
+      setClickTimeout(timeout);
     }
   };
 
@@ -75,7 +85,6 @@ const AllFriends = () => {
               key={friend.id}
               user={friend}
               onClick={() => handleUserClick(friend)}
-              onDoubleClick={() => handleDoubleClick(friend)}
             />
           ))}
         </FList>

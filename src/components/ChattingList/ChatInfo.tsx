@@ -121,11 +121,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chatroomId }) => {
           {chatroom.isFixed && <StyledPin />}
         </TopRow>
         <BottomRow>
-          <LastMessage>
-            {lastMessage.length > 20
-              ? `${lastMessage.substring(0, 20)}...`
-              : lastMessage}
-          </LastMessage>
+          <LastMessage>{lastMessage}</LastMessage>
         </BottomRow>
       </MiddleSection>
       <LastMessageTime>{formattedTime}</LastMessageTime>
@@ -178,6 +174,10 @@ const BottomRow = styled.div`
 const LastMessage = styled.div`
   ${({ theme }) => theme.font.Body_2_reg};
   color: ${({ theme }) => theme.color.gray70};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 13rem;
 `;
 
 const LastMessageTime = styled.div`

@@ -24,9 +24,7 @@ type chatStore = {
 };
 
 const useChatStore = create<chatStore>((set) => ({
-  chatByRooms: JSON.parse(
-    localStorage.getItem("chatByRooms") || JSON.stringify(ChatData)
-  ),
+  chatByRooms: JSON.parse(JSON.stringify(ChatData)),
 
   // 오늘 날짜(newChatDate)에 해당하는 기존 데이터가 있으면 거기에 추가하고, 없으면 새 배열로 감싸서 추가하기
   addChat: (roomId: number, newChat: chat, newChatDate: string) =>
@@ -55,9 +53,6 @@ const useChatStore = create<chatStore>((set) => ({
           allChats: [...room.allChats, { date: newChatDate, chats: [newChat] }],
         };
       });
-
-      // 로컬 스토리지에 채팅 저장
-      localStorage.setItem("chatByRooms", JSON.stringify(updatedChatByRooms));
 
       return { chatByRooms: updatedChatByRooms };
     }),

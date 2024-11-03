@@ -89,4 +89,8 @@ const UserName = styled.p`
   color: ${({ theme }) => theme.color.gray100};
   text-align: center;
   margin-top: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 2.75rem;
 `;

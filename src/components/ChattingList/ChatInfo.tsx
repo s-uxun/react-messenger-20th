@@ -59,26 +59,26 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chatroomId }) => {
         lastMessage = lastChat.text;
         lastMessageTime = lastChat.time;
 
+        // 원랜 단순하게 오늘 날짜에서 1 뺀 거랑 비교했었는데, 논리 오류가 발생 (ex. 월말과 월초 등) -> 그냥 date 객체 활용
         const formatLastMessageTime = (
           dateString: string,
           timeString: string
         ) => {
-          const today = newDate;
+          const today = new Date();
+          const yesterday = new Date(today);
+          yesterday.setDate(today.getDate() - 1);
 
-          // 어제 날짜 계산 (오늘 날짜에서 1빼기)
-          const dayToday = parseInt(today.split(" ")[2].replace("일", ""));
-          const yesterdayString = `${today.split(" ")[0]} ${
-            today.split(" ")[1]
-          } ${dayToday - 1}일 ${today.split(" ")[3]}`;
+          const [year, month, day] = dateString.match(/\d+/g)!.map(Number);
 
-          if (dateString === today) {
+          const messageDate = new Date(year, month - 1, day);
+
+          if (messageDate.toDateString() === today.toDateString()) {
             return timeString;
-          } else if (dateString === yesterdayString) {
-            return "어제";
-          } else {
-            const [_, month, day] = dateString.split(" ");
-            return `${month} ${day}`;
           }
+          if (messageDate.toDateString() === yesterday.toDateString()) {
+            return "어제";
+          }
+          return `${month}월 ${day}일`;
         };
 
         formattedTime = formatLastMessageTime(
